@@ -15,7 +15,7 @@ const SidebarMenu = ({ setIsSidebarOpen }) => {
             {closeSidebar ? null :
                 <div className="sticky z-20 top-0">
                     <div className="fixed inset-0 z-20 overflow-hidden">
-                        <div className="absolute inset-0 bg-black opacity-50" onClick={handleCloseSidebar}></div>
+                        <div className="absolute inset-0 bg-color-accent2 opacity-70 blur-xl brightness-75" onClick={handleCloseSidebar}></div>
                         <div className="absolute shadow-xl h-[100vh] w-[76vh] bg-color-primary text-color-accent2">
                             <div className="px-5 py-10">
                                 <div className="flex justify-between items-center">
