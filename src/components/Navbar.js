@@ -33,7 +33,7 @@ const Navbar = () => {
                 null
             }
             <div className="sticky top-0 bg-color-primary z-10 flex items-center py-3 px-4 gap-10 shadow-md">
-                <button onClick={miniMenuNavbar} className="visible lg:hidden md:hidden xl:hidden">
+                <button onClick={miniMenuNavbar} className="p-[6px] visible lg:hidden md:hidden xl:hidden hover:bg-color-accent hover:bg-opacity-10 hover:rounded-full transition-all ease-in-out">
                     <List size={24} />
                 </button>
                 <Link href={'/'} className="text-md font-bold hidden md:block">FurniCraft</Link>
