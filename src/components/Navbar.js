@@ -5,11 +5,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import axios from "axios";
 import SidebarMenu from "../components/Sidebar"
+import SearchFurnitems from "./SearchFurnitems";
 
 
 const Navbar = () => {
     const [cartCount, setCartCount] = useState(0)
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
+    const [isSearchOpen, setIsSearchOpen] = useState(false)
     const router = useRouter()
     const clickToCart = () => {
         router.push('/cart')
@@ -23,6 +25,10 @@ const Navbar = () => {
         setIsSidebarOpen(true)
         document.body.classList.add('overflow-hidden');
     }
+    const handleOpenSearch = () => {
+        setIsSearchOpen((prevState) => !prevState)
+        document.body.classList.add('overflow-hidden');
+    }
 
     handleCountCart()
     return ( 
@@ -31,6 +37,9 @@ const Navbar = () => {
                 <SidebarMenu setIsSidebarOpen={setIsSidebarOpen} />
                 :
                 null
+            }
+            {isSearchOpen ?
+                <SearchFurnitems setIsSearchOpen={setIsSearchOpen}/> : null
             }
             <div className="sticky top-0 bg-color-primary z-10 flex items-center py-3 px-4 gap-10 shadow-md">
                 <button onClick={miniMenuNavbar} className="p-[6px] visible lg:hidden md:hidden xl:hidden hover:bg-color-accent hover:bg-opacity-10 hover:rounded-full transition-all ease-in-out">
@@ -43,12 +52,12 @@ const Navbar = () => {
                 </div>
 
                 <div className="flex gap-3 ml-auto">
-                    <button className="visible lg:hidden md:hidden py-1 px-3 border-[1px] shadow border-color-accent border-opacity-15 rounded-full">
+                    <button onClick={handleOpenSearch} className="visible lg:hidden md:hidden py-1 px-3 border-[1px] shadow border-color-accent border-opacity-15 rounded-full">
                         <MagnifyingGlass size={20}  className="font-medium"/>
                     </button>
-                    <div className="relative hidden md:flex md:items-center py-2 px-4 border-[1px] shadow border-color-accent border-opacity-15 hover:bg-color-grey hover:bg-opacity-5 rounded-full">
+                    <div onClick={handleOpenSearch} className="cursor-pointer relative hidden md:flex md:items-center py-2 px-4 border-[1px] shadow border-color-accent border-opacity-15 hover:bg-color-grey hover:bg-opacity-5 rounded-full transition-all ease-linear 2s">
                         <MagnifyingGlass size={17}  className="absolute left-2 font-medium"/>
-                        <button className="font-medium pl-4 text-sm">Cari Furnitems... <span className="rounded-full bg-sky-100 text-[10px] py-1 px-2 font-bold">Ctrl K</span> </button>
+                        <p className="font-medium pl-4 text-sm">Cari Furnitems... <span className="rounded-full bg-sky-100 text-[10px] py-1 px-2 font-bold">Ctrl K</span> </p>
                     </div>
                     <button onClick={clickToCart} className="relative flex gap-1 items-center py-2 px-3 border-[1px] shadow border-color-accent border-opacity-15 rounded-full hover:bg-color-grey hover:bg-opacity-5">
                         <ShoppingCartSimple size={17} />
