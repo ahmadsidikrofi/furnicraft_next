@@ -15,7 +15,8 @@ const FurnituresCard = ({ furnitures }) => {
         setCartItems(storedCart)
     }, [])
 
-    const addToCart = async (furniture) => {
+    const addToCart = async (furniture, e) => {
+        e.preventDefault()
         const isFurnitureExists = cartItems.some((item) => item.slug === furniture.slug)
         if (isFurnitureExists) {
             alert("Furniture sudah tersedia dalam keranjang")
@@ -47,7 +48,7 @@ const FurnituresCard = ({ furnitures }) => {
                 {isLoading ? <Loading setIsLoading={setIsLoading}/> :
                     // /furnitures/edit/${furniture.slug}
                     <div>
-                        <Link href={`/furnitures/${furniture.slug}`} className="" >
+                        <Link href={`/furnitures/${furniture.slug}`}>
                             <div className="p-2 border-color-accent border-[1px] text-color-secondary rounded-[23px] shadow-xl hover:shadow-2xl transition-all ease-linear">
                                 <Image src={furniture.image || ''} width={700} height={700} alt="..." className="w-full object-cover xl:h-64 lg:h-64 h-96 rounded-[20px] hover:transition-all hover:scale-[1.08]" />
                                 <div className="p-2">
@@ -58,9 +59,9 @@ const FurnituresCard = ({ furnitures }) => {
                                             : furniture.nama_furniture
                                         }
                                     </p>
-                                    <div className="flex justify-between items-center z-20">
+                                    <div className="flex justify-between items-center">
                                         <p className="font-semibold text-lg text-color-accent2">Rp {furniture.harga.toLocaleString("id-ID", {minimumFractionDigits: 2})}</p>
-                                        <button onClick={() => addToCart(furniture)} >
+                                        <button onClick={(e) => addToCart(furniture, e)} >
                                             <ShoppingCart size={36} className="p-2 border-[1px] bg-color-thin border-color-accent text-color-accent2 rounded-full hover:scale-[1.15] transition-all ease-linear hover:shadow-lg hover:bg-color-accent2 hover:text-color-primary" />
                                         </button>
                                     </div>
