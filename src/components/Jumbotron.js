@@ -9,7 +9,7 @@ const Jumbotron = () => {
             <div className="grid grid-cols-2 max-sm:grid-cols-1 text-[4vw] max-sm:text-center max-sm:text-[6vw] font-bold px-16 py-0">
                 <div>
                     <h1 className="leading-[4vw] max-sm:leading-[7vw] tracking-tight">An open source e-commerce project built by <span className="text-color-accent2">Rofiyes</span></h1>
-                    <p className="text-[2vw] max-sm:text-[3vw] max-sm:font-medium  text-color-secondary opacity-65 font-light my-5">Buy and sell furnitures gears from independent brands and stores around the world with ease</p>
+                    <p className="text-[2vw] max-sm:text-[3vw] max-sm:font-medium text-color-secondary opacity-65 font-light my-5">Buy and sell furnitures gears from independent brands and stores around the world with ease</p>
                 </div>
                 <div className="mt-7 max-sm:pb-28 max-sm:order-last">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#10b981" fillOpacity="0.8" d="M0,128L0,32L90,32L90,192L180,192L180,320L270,320L270,128L360,128L360,32L450,32L450,128L540,128L540,64L630,64L630,256L720,256L720,64L810,64L810,96L900,96L900,96L990,96L990,224L1080,224L1080,96L1170,96L1170,224L1260,224L1260,192L1350,192L1350,32L1440,32L1440,0L1350,0L1350,0L1260,0L1260,0L1170,0L1170,0L1080,0L1080,0L990,0L990,0L900,0L900,0L810,0L810,0L720,0L720,0L630,0L630,0L540,0L540,0L450,0L450,0L360,0L360,0L270,0L270,0L180,0L180,0L90,0L90,0L0,0L0,0Z"></path></svg>

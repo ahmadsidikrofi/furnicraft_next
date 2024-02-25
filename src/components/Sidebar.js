@@ -25,11 +25,13 @@ const SidebarMenu = ({ setIsSidebarOpen }) => {
     return ( 
         <>
             {closeSidebar ? null :
+            <div>
+                {/* <div className="absolute inset-0 z-20 bg-opacity-50 bg-color-primary backdrop-blur-xl transition-all ease-in-out delay-75 2s" onClick={handleCloseSidebar}></div> */}
                 <div className="sticky z-20 top-0">
                     <div className="fixed inset-0 z-20 overflow-hidden">
-                        <div className="absolute inset-0 bg-color-accent2 opacity-70 blur-xl brightness-75 transition-all ease-in-out delay-75 2s" onClick={handleCloseSidebar}></div>
+                    <div className="absolute inset-0 bg-opacity-20 bg-color-primary backdrop-blur-sm transition-all ease-in-out delay-75 2s" onClick={handleCloseSidebar}></div>
                         <AnimatePresence>
-                            <motion.div className="absolute h-[100vh] w-[76vh] bg-color-primary text-color-accent2 border-color-secondary"
+                            <motion.div className="absolute h-[100vh] w-[76vh] md:h-[100vh] md:w-[40%] max-sm:h-[100vh] max-sm:w-[80%] bg-color-primary text-color-accent2 shadow-lg"
                                 initial={{ x: -250, opacity: 0.8 }}
                                 animate={{ x: 0, opacity: 1 }}
                                 exit={{ x: -250, opacity: 0 , transition: { delay: 0.2 }}}
@@ -72,6 +74,7 @@ const SidebarMenu = ({ setIsSidebarOpen }) => {
                         </AnimatePresence>
                     </div>
                 </div>
+            </div>
             }
         </>
     );
