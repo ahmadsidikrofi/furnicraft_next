@@ -12,7 +12,18 @@ const Navbar = () => {
     const [cartCount, setCartCount] = useState(0)
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
+    const [menuActive, setMenuActive] = useState(null)
     const router = useRouter()
+
+    const handleMenuActive = (menu) => {
+        if (menuActive === menu) {
+            setMenuActive(null);
+        } else {
+            setMenuActive(menu);
+        }
+    }
+    const isMenuActive = (menu) => menu === menuActive;
+
     const clickToCart = () => {
         router.push('/cart')
     }
@@ -55,7 +66,7 @@ const Navbar = () => {
                     <button onClick={handleOpenSearch} className="visible lg:hidden py-1 px-3 border-[1px] shadow border-color-accent border-opacity-15 rounded-full">
                         <MagnifyingGlass size={20}  className="font-medium"/>
                     </button>
-                    <div onClick={handleOpenSearch} className="cursor-pointer relative hidden xl:flex xl:items-center lg:flex lg:items-center py-2 px-4 border-[1px] shadow border-color-accent border-opacity-15 hover:bg-color-grey hover:bg-opacity-5 rounded-full transition-all ease-linear 2s">
+                    <div onClick={handleOpenSearch} className={`cursor-pointer relative hidden xl:flex xl:items-center lg:flex lg:items-center py-2 px-4 border-[1px] shadow border-color-accent border-opacity-15 hover:bg-color-grey hover:bg-opacity-5 rounded-full transition-all ease-linear 2s`}>
                         <MagnifyingGlass size={17}  className="absolute left-2 font-medium"/>
                         <p className="font-medium pl-4 text-sm">Cari Furnitems... <span className="rounded-full bg-sky-100 text-[10px] py-1 px-2 font-bold">Ctrl K</span> </p>
                     </div>
@@ -64,11 +75,21 @@ const Navbar = () => {
                         <p className="font-medium text-sm">{cartCount}</p>
                     </button>
 
-                    <div className="relative flex items-center py-2 px-3 shadow-md rounded-full">
+                    <div onClick={() => handleMenuActive('user')} className={`relative flex items-center py-2 px-3 shadow-md rounded-full ${isMenuActive('user') ? 'bg-color-accent' : null}`}>
                         <button>
                             <UserCircle size={24} />
                         </button>
                     </div>
+                    <div onClick={() => handleMenuActive('user2')} className={`relative flex items-center py-2 px-3 shadow-md rounded-full ${isMenuActive('user2') ? 'bg-color-accent' : null}`}>
+                        <button>
+                            <UserCircle size={24} />
+                        </button>
+                    </div>
+                    {/* <div className="relative flex items-center py-2 px-3 shadow-md rounded-full">
+                        <button>
+                            <UserCircle size={24} />
+                        </button>
+                    </div> */}
                 </div>
             </div>
         </>

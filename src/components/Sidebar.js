@@ -11,16 +11,16 @@ const SidebarMenu = ({ setIsSidebarOpen }) => {
         lobby: true,
         categories: true
     })
-    const handleCloseSidebar = () => {
-        setCloseSidebar(true)
-        setIsSidebarOpen(false)
-        document.body.classList.remove('overflow-hidden');
-    }
     const handleWrapSidebarMenu = (parentMenu) => {
         setWrapSidebarMenu((prevState) => ({
             ...prevState,
             [parentMenu]: !prevState[parentMenu]
         }))
+    }
+    const handleCloseSidebar = () => {
+        setCloseSidebar(true)
+        setIsSidebarOpen(false)
+        document.body.classList.remove('overflow-hidden');
     }
     return ( 
         <>
