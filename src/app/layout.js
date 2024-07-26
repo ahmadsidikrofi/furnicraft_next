@@ -1,8 +1,8 @@
 import { Poppins } from 'next/font/google'
-import './globals.css'
-import "@uploadthing/react/styles.css";
-import Navbar from "../components/Navbar"
-import 'react-loading-skeleton/dist/skeleton.css'
+import "./globals.css";
+import NavbarWrapper from '@/components/NavbarWrapper';
+import { authUserGithub } from '@/libs/auth';
+// import 'react-loading-skeleton/dist/skeleton.css'
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'] })
 
@@ -11,13 +11,14 @@ export const metadata = {
   description: 'Memberikan layanan konsultasi gratis kepada setiap pelanggan untuk memahami kebutuhan dan preferensi mereka terhadap ruangan interior yang ingin dibuat.',
 }
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
+  const authUser = await authUserGithub()
   return (
     <html lang="en">
       <body className={poppins.className}>
-        <Navbar />
+        <NavbarWrapper authUser={authUser}/>
         {children}
       </body>
     </html>
-  )
+  );
 }

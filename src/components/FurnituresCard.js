@@ -2,11 +2,12 @@
 import { ShoppingCart } from "@phosphor-icons/react"
 import Image from "next/image"
 import Link from "next/link"
-import Loading from "./Loading"
+import LoadingSkeleton from "./Skeleton"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
-const FurnituresCard = ({ furnitures }) => {
+import toast, { Toaster } from 'react-hot-toast';
+const FurnituresCard = ({ furnitures, email }) => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(true)
     const [cartItems, setCartItems] = useState([])
@@ -19,7 +20,7 @@ const FurnituresCard = ({ furnitures }) => {
         e.preventDefault()
         const isFurnitureExists = cartItems.some((item) => item.slug === furniture.slug)
         if (isFurnitureExists) {
-            alert("Furniture sudah tersedia dalam keranjang")
+            toast.success("Furniture sudah tersedia dalam keranjang")
         } else {
             const data = {
                 furniture_id: furniture.id,
@@ -28,24 +29,31 @@ const FurnituresCard = ({ furnitures }) => {
                 categories: furniture.categories,
                 image: furniture.image,
                 id_furniture: furniture.id,
-                slug: furniture.slug
+                slug: furniture.slug,
+                user_email: email,
             };
             const isCartItemStored = [...cartItems, data]
             setCartItems(isCartItemStored)
             localStorage.setItem('cartItems', JSON.stringify(isCartItemStored))
-
             const res = await axios.post('/api/v1/cart', data)
             if (res.data.status === 200) {
-                alert("Furniture berhasil masuk keranjang")
-                router.refresh()
-            } else console.error("Gagal menambahkan item ke keranjang");
+                toast.loading("Tunggu...", { duration: 1000 })
+                setTimeout(() => {
+                    toast.success("Furniture berhasil masuk keranjang")
+                    router.refresh()
+                }, 1000)
+            } else {
+                toast.error("Gagal masuk ke keranjang 😅")
+                console.error("Gagal menambahkan item ke keranjang");
+            }
         }
     };
     return (
         <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 my-12">
+            <Toaster />
             {furnitures?.map((furniture) => (
                 <div key={furniture.id}>
-                {isLoading ? <Loading setIsLoading={setIsLoading}/> :
+                {isLoading ? <LoadingSkeleton setIsLoading={setIsLoading}/> :
                     // /furnitures/edit/${furniture.slug}
                     <div>
                         <Link href={`/furnitures/${furniture.slug}`}>
@@ -55,7 +63,7 @@ const FurnituresCard = ({ furnitures }) => {
                                     <p className="font-normal text-sm py-2">{furniture.categories}</p>
                                     <p className="font-semibold text-xl mb-5">
                                         {furniture.nama_furniture.length > 19 ? 
-                                            furniture.nama_furniture.substring(0, 20) + "..." 
+                                            furniture.nama_furniture.substring(0, 19) + "..." 
                                             : furniture.nama_furniture
                                         }
                                     </p>

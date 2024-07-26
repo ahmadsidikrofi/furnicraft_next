@@ -1,26 +1,17 @@
-import slugify from "slugify";
-import prisma from "../../../../../libs/prisma";
+import slugify from "slugify"
 
 export async function PUT (request, { params }) {
     const slug = params.slug
-    const { nama_furniture, harga, categories, image, deskripsi } = await request.json()
-    const updateFurniture = await prisma.furnitures.update({ 
+    const { nama_furniture, deskripsi, harga, image, categories, store_id } = await request.json()
+    console.log('Slug received:', slug);
+    console.log('Data received:', { nama_furniture, deskripsi, harga, image, categories, store_id });
+    const updateFurniture = await prisma.furnitures.update({
         where: { slug: slug },
-        data: {
-            nama_furniture: nama_furniture,
-            slug: slugify(nama_furniture, { lower: true, strict: true, replacement: '-' }),
+        data: { nama_furniture, deskripsi, image, categories, store_id,
             harga: parseFloat(harga),
-            categories: categories,
-            image: image,
-            deskripsi: deskripsi
+            slug: slugify(nama_furniture, { strict: true, replacement: '-', lower: true })
         }
     })
-    if (!updateFurniture) return Response.json({ status: 500, message: "Furnitur gagal diedit", isUpdated: false })
-    else return Response.json({ status: 200, message: "Furnitur berhasil diedit", isUpdated: true })
-}
-export async function DELETE (request, { params }) {
-    const slug = params.slug
-    const delFurniture = await prisma.furnitures.delete({ where: { slug: slug } })
-    if (!delFurniture) return Response.json({ status: 500, message: "Furnitur gagal dihapus", isDeleted: false })
-    else return Response.json({ status: 200, message: "Furnitur berhasil dihapus", isDeleted: true })
+    if (!updateFurniture) return Response.json({ status: 500, isUpdate: false, message: "Furniture gagal di ubah" })
+    else return Response.json({ status: 200, isUpdate: true, message: "Furniture berhasil diubah", updateFurniture })
 }

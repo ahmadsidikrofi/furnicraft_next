@@ -1,4 +1,4 @@
-import prisma from "../../../../libs/prisma"
+import prisma from "@/libs/prisma"
 
 export async function POST(request) {
     const { nama_kategori, slug } = await request.json()

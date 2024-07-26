@@ -1,26 +1,25 @@
+import { authUserGithub } from "@/libs/auth"
+import prisma from "@/libs/prisma"
 import slugify from "slugify"
-import prisma from "../../../../libs/prisma"
 
-export async function POST (request) {
-    const { nama_furniture, harga, categories, image, id_furniture, slug } = await request.json()
-    const data = { 
-        nama_furniture, 
-        slug: slugify(nama_furniture, { lower: true, strict: true, replacement: "-" }), 
-        harga: parseFloat(harga), categories, image, id_furniture
+export async function POST( request ) {
+    const { id_furniture, nama_furniture, user_email, harga, categories, image } = await request.json()
+    const data = {
+        nama_furniture, categories, id_furniture, image, user_email,
+        harga: parseFloat(harga),
+        slug: slugify(nama_furniture, { lower: true, strict: true, replacement: "-" })
     }
-    const tambahKeranjang = await prisma.cart.create({ data: data })
-    if (!tambahKeranjang) return Response.json({ status: 500, isCreated: false })
+    console.log("Data yang dikirim ke Prisma:", data)
+    const addItem = await prisma.cart.create({data})
+    if (!addItem) return Response.json({ status: 500, isCreated: false })
     else return Response.json({ status: 200, isCreated: true })
 }
 
-export async function GET () {
-    const countCart = await prisma.cart.count()
-    if (!countCart) return Response.json({ status: 500 })
+export async function GET() {
+    const userAuth = await authUserGithub()
+    const countCart = await prisma.cart.count({
+        where: { user_email: userAuth?.email }
+    })
+    if (!countCart) return Response.json({ status: 401 })
     else return Response.json({ status: 200, countCart })
-}
-
-export async function DELETE () {
-    const deleteAllCart = await prisma?.cart.deleteMany()
-    if (!deleteAllCart) return Response.json({ status: 500, isDelete: false })
-    else return Response.json({ status: 200, isDelete: true })
 }
