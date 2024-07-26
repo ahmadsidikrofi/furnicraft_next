@@ -2,7 +2,7 @@
 import Link from "next/link";
 // import CategoriesIcon from "./CategoriesIcon";
 import { useState } from "react";
-import LoadingSkeleton from "./Skeleton";
+import LoadingSkeleton from "./skeleton/CategorySkeleton";
 import { Armchair } from "@phosphor-icons/react";
 
 const CategoriesCard = ({ categories }) => {

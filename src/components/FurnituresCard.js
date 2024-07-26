@@ -2,11 +2,11 @@
 import { ShoppingCart } from "@phosphor-icons/react"
 import Image from "next/image"
 import Link from "next/link"
-import LoadingSkeleton from "./Skeleton"
 import { useEffect, useState } from "react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import toast, { Toaster } from 'react-hot-toast';
+import FurnitureSkeleton from "./skeleton/FurnitureSkeleton"
 const FurnituresCard = ({ furnitures, email }) => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(true)
@@ -53,7 +53,7 @@ const FurnituresCard = ({ furnitures, email }) => {
             <Toaster />
             {furnitures?.map((furniture) => (
                 <div key={furniture.id}>
-                {isLoading ? <LoadingSkeleton setIsLoading={setIsLoading}/> :
+                {isLoading ? <FurnitureSkeleton setIsLoading={setIsLoading}/> :
                     // /furnitures/edit/${furniture.slug}
                     <div>
                         <Link href={`/furnitures/${furniture.slug}`}>
