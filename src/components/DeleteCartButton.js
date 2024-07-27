@@ -1,5 +1,5 @@
 'use client'
-import { X } from "@phosphor-icons/react"
+import { X, XCircle, XLogo } from "@phosphor-icons/react"
 import axios from "axios"
 import { useRouter } from "next/navigation"
 
@@ -20,8 +20,8 @@ const DeleteCartButton = ({ detailSlug, toast}) => {
     }
     return (
         <div>
-            <button onClick={handleDeleteCart} className="shadow-lg py-1 w-8 rounded-full border-[1px] border-opacity-20 border-color-grey flex justify-center lg:ml-20 xl:ml-20 md:ml-auto sm:ml-auto max-sm:ml-auto">
-                <X size={20} />
+            <button onClick={handleDeleteCart} className="shadow-lg py-1 w-8 rounded-full border-[1px] border-opacity-20 border-color-grey flex justify-center lg:ml-20 md:ml-48 sm:ml-auto max-sm:ml-44">
+                <XLogo  className="w-5 h-5"/>
             </button>
         </div>
     )

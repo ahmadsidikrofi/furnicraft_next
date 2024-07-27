@@ -19,13 +19,30 @@ import {
     DropdownMenuSeparator,
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+  } from "@/components/ui/alert-dialog"
 import Link from "next/link";
 import { Button } from "./ui/button";
-import { DotsHorizontalIcon, EyeOpenIcon, Pencil1Icon, PlusCircledIcon, TrashIcon } from "@radix-ui/react-icons"
+import { DotsHorizontalIcon, EyeOpenIcon, PlusCircledIcon, ReloadIcon } from "@radix-ui/react-icons"
+import {  PencilCircle, Trash } from "@phosphor-icons/react";
+import { useRouter } from "next/navigation";
+import axios from "axios";
 
 const SearchFurnitureDashboard = ({ initialFurnitures, detailData }) => {
-    const [fetchFurnitures, setFetchFurnitures] = useState(initialFurnitures);
-    const [searchTerm, setSearchTerm] = useState('');
+    const [fetchFurnitures, setFetchFurnitures] = useState(initialFurnitures)
+    const [searchTerm, setSearchTerm] = useState('')
+    const [isLoading, setIsLoading] = useState(false)
+    const router = useRouter()
 
     useEffect(() => {
         if (searchTerm.trim() === "") {
@@ -42,7 +59,15 @@ const SearchFurnitureDashboard = ({ initialFurnitures, detailData }) => {
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
     };
-
+    const handleDeleteFurniture = async (slug) => {
+        setIsLoading(true)
+        await axios.delete(`/api/v1/furnitures/${slug}`)
+        setTimeout(() => {
+            setIsLoading(false)
+            .then(router.refresh())
+        }, 3000)
+    }
+ 
     return (
         <>
             <div className="flex flex-row items-center justify-between">
@@ -99,23 +124,37 @@ const SearchFurnitureDashboard = ({ initialFurnitures, detailData }) => {
                                                 <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                                 <DropdownMenuSeparator />
                                                 <Link href={`/furnitures/${furniture.slug}`}>
-                                                    <DropdownMenuItem className="flex gap-3">
-                                                        <EyeOpenIcon className="h-4 w-4" />
+                                                    <DropdownMenuItem className="flex gap-3 cursor-pointer">
+                                                        <EyeOpenIcon className="h-5 w-5" />
                                                         <p>View</p>
                                                     </DropdownMenuItem>
                                                 </Link>
                                                 <Link href={`/dashboard/stores/${detailData.slug}/${furniture.slug}`}>
-                                                    <DropdownMenuItem className="flex gap-3">
-                                                        <Pencil1Icon className="h-4 w-4" />
+                                                    <DropdownMenuItem className="flex gap-3 cursor-pointer">
+                                                        <PencilCircle className="h-5 w-5" />
                                                         <p>Update</p>
                                                     </DropdownMenuItem>
                                                 </Link>
-                                                <Link href="/dashboard/stores">
-                                                    <DropdownMenuItem className="flex gap-3">
-                                                        <TrashIcon className="h-4 w-4" />
-                                                        <p>Delete</p>
-                                                    </DropdownMenuItem>
-                                                </Link>
+                                                <DropdownMenuItem className="cursor-pointer" asChild>
+                                                    <AlertDialog>
+                                                        <AlertDialogTrigger asChild>
+                                                            <Button variant="none" className="p-2 flex gap-3 h-9">
+                                                                {isLoading ? <ReloadIcon className="h-5 w-5 animate-spin" /> : <Trash className="h-5 w-5" />}
+                                                                <p>Delete</p>
+                                                            </Button>
+                                                        </AlertDialogTrigger>
+                                                        <AlertDialogContent>
+                                                            <AlertDialogHeader>
+                                                                <AlertDialogTitle>Yakin ingin dihapus?</AlertDialogTitle>
+                                                                <AlertDialogDescription>Dengan begini 1 furniturmu akan dibuang</AlertDialogDescription>
+                                                            </AlertDialogHeader>
+                                                            <AlertDialogFooter>
+                                                                <AlertDialogCancel className="rounded-full">Batalkan</AlertDialogCancel>
+                                                                <AlertDialogAction className="bg-rose-500 rounded-full" onClick={() => handleDeleteFurniture(furniture.slug)}>Sudah mantap!</AlertDialogAction>
+                                                            </AlertDialogFooter>
+                                                        </AlertDialogContent>
+                                                    </AlertDialog>
+                                                </DropdownMenuItem>
                                             </DropdownMenuContent>
                                         </DropdownMenu>
                                     </TableCell>

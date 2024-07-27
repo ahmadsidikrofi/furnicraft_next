@@ -92,7 +92,7 @@ const FormSettingStore = ({ email, detailData }) => {
                             <FormItem className="my-5">
                                 <FormLabel>Description</FormLabel>
                                 <FormControl>
-                                    <Textarea placeholder="Describe your good Store" {...field} />
+                                    <Textarea className="h-24" placeholder="Describe your good Store" {...field} />
                                 </FormControl>
                                 <FormMessage />
                             </FormItem>

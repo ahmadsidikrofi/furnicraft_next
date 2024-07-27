@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
+import { AspectRatio } from "../ui/aspect-ratio"
 
 const CategorySkeleton = ({setIsLoading}) => {
     useEffect(() => {
@@ -8,7 +9,10 @@ const CategorySkeleton = ({setIsLoading}) => {
     }, [setIsLoading])
     return ( 
         <div>
-            <Skeleton className="h-36 rounded-1/2" />
+            <AspectRatio ratio={2 / 1}>
+                <div className='absolute rounded-2xl inset-0 bg-gradient-to-t from-transparent to-zinc-950/50' />
+                <Skeleton className='h-36 rounded-2xl' />
+            </AspectRatio>
         </div>
     );
 }

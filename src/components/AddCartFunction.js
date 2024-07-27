@@ -25,13 +25,15 @@ const AddCartFunction = ( {nama_furniture, harga, categories, image, id_furnitur
             localStorage.setItem("cartItems", JSON.stringify(isCartItemStored))
 
             const pushItemToCart = await axios.post("/api/v1/cart", data)
-            if (pushItemToCart.data.status === 200) {
+            .then(() => {
                 toast.loading("Tunggu...", { duration: 1000 })
                 setTimeout(() => {
                     toast.success("Furniture berhasil masuk keranjang")
                     router.refresh()
                 }, 1000)
-            }
+            }).catch(() => {
+                toast.error("Sepertinya jangan beli barang ini dulu ya🙏")
+            })
         }
     }
 

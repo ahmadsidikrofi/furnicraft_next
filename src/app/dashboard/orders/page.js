@@ -16,13 +16,22 @@ const OrdersPage = async () => {
             </div>
             <Separator className="w-[90vw] lg:w-[73vw] max-sm:w-[80vw] md:none my-3" />
             <div className="lg:mx-6 mt-5 lg:w-[70vw]">
-                <Tabs>
+                <Tabs defaultValue="all">
                     <TabsList className="grid w-full grid-cols-4">
                         <TabsTrigger value="all">All</TabsTrigger>
                         <TabsTrigger value="pending">Pending</TabsTrigger>
                         <TabsTrigger value="paid">Paid</TabsTrigger>
                         <TabsTrigger value="canceled">Canceled</TabsTrigger>
                     </TabsList>
+                    <TabsContent value="all">
+                        <div className="p-5 border rounded-xl">
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-color-accent2 text-xl mb-3">Your Orders</h2>
+                                <p>Pending</p>
+                            </div>
+                            <Separator className="mt-6"/>
+                        </div>
+                    </TabsContent>
                 </Tabs>
             </div>
         </main>

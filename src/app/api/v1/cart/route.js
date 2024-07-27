@@ -23,3 +23,9 @@ export async function GET() {
     if (!countCart) return Response.json({ status: 401 })
     else return Response.json({ status: 200, countCart })
 }
+
+export async function DELETE () {
+    const deleteAllCart = await prisma?.cart.deleteMany()
+    if (!deleteAllCart) return Response.json({ status: 500, isDelete: false })
+    else return Response.json({ status: 200, isDelete: true })
+}
