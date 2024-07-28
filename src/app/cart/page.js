@@ -22,7 +22,7 @@ const CartPage = async () => {
         minimumFractionDigits: 2,
     })
     const nama_furniture = cartUsers.map((cartUser) => cartUser.nama_furniture)
-    const ids = cartUsers.map((cartUser) =>  parseInt(cartUser.id_furniture.toString()))
+    const ids = cartUsers.map((cartUser) =>  cartUser.id_furniture.toString())
     const harga = parseInt(totalHarga)  
     return (
         <main>

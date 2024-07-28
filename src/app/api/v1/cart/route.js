@@ -25,7 +25,10 @@ export async function GET() {
 }
 
 export async function DELETE () {
-    const deleteAllCart = await prisma?.cart.deleteMany()
+    const authUser = await authUserGithub()
+    const deleteAllCart = await prisma?.cart.deleteMany({
+        where: { user_email: authUser?.email }
+    })
     if (!deleteAllCart) return Response.json({ status: 500, isDelete: false })
     else return Response.json({ status: 200, isDelete: true })
 }

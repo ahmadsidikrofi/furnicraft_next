@@ -24,7 +24,7 @@ export async function POST (request) {
         quantity: quantity,
         price: parseInt(furniture.harga),
     }))
-    let grossAmount = itemDetails.reduce((acc, item) => acc + (item.price * item.quantity), 0)
+    // let grossAmount = itemDetails.reduce((acc, item) => acc + (item.price * item.quantity), 0)
     let parameterMidtrans = {
         item_details: itemDetails,
         customer_details: {
@@ -39,7 +39,26 @@ export async function POST (request) {
             secure: true,
         },
     }
+
     const createToken = await snap.createTransactionToken(parameterMidtrans)
+    const createOrder = await prisma.Orders.create({
+        data: {
+            user_email: authUser?.email,
+            total_harga: harga,
+            token: createToken,
+            status: "PENDING"
+        }
+    });
+
+    for (let furniture of furnitureItem) {
+        await prisma.OrderFurniture.create({
+            data: {
+                orderId: parseInt(createOrder.id),
+                furnitureId: furniture.id, 
+                storeId: furniture.store_id, 
+            }
+        });
+    }
     console.log(createToken, parameterMidtrans)
     if ( !createToken ) return Response.json({ status: 500, isCreated: false })
     else return Response.json({ createToken, status: 200, isCreated: true })
