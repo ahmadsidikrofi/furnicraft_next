@@ -9,7 +9,7 @@ import { Separator } from "@/components/ui/separator";
 
 const CartPage = async () => {
     const userAuth = await authUserGithub()
-    const productId = ~~(Math.random() * 100) + 1
+    // const productId = ~~(Math.random() * 100) + 1
     const cartUsers = await prisma?.cart.findMany({
         where: { user_email: userAuth?.email },
         orderBy: { id: 'desc' }
@@ -21,9 +21,8 @@ const CartPage = async () => {
     const formatTotHarga = totalHarga.toLocaleString("id-ID", {
         minimumFractionDigits: 2,
     })
-    const nama_furniture = cartUsers.map((cartUser) => {
-        return cartUser.nama_furniture
-    })
+    const nama_furniture = cartUsers.map((cartUser) => cartUser.nama_furniture)
+    const ids = cartUsers.map((cartUser) =>  parseInt(cartUser.id_furniture.toString()))
     const harga = parseInt(totalHarga)  
     return (
         <main>
@@ -62,7 +61,7 @@ const CartPage = async () => {
                             <p className="font-medium">Order total</p>
                             <p className="font-normal">Rp {formatTotHarga}</p>
                         </div>
-                        <CheckoutButton id={productId} harga={harga} cartUsers={cartUsers} nama_furniture={nama_furniture}/>
+                        <CheckoutButton ids={ids} harga={harga} cartUsers={cartUsers} nama_furniture={nama_furniture}/>
                     </div>
                 </div>
             </div>

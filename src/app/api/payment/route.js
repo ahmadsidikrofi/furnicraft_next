@@ -1,5 +1,6 @@
 import { authUserGithub } from "@/libs/auth"
 import Midtrans from "midtrans-client"
+import { nanoid } from "nanoid"
 
 let snap = new Midtrans.Snap({
     isProduction: false,
@@ -9,27 +10,34 @@ let snap = new Midtrans.Snap({
 
 export async function POST (request) {
     const authUser = await authUserGithub()
-    const { id, harga, quantity } = await request.json()
+    const { ids, harga, quantity, nama_furniture } = await request.json()
     const furnitureItem = await prisma.furnitures.findMany({
         where: {
-            id: id
+            id: {
+                in: ids.map(id => parseInt(id))
+            }
         }
     })
+    const itemDetails = furnitureItem.map((furniture) => ({
+        id: furniture.id.toString(),
+        name: furniture.nama_furniture,
+        quantity: quantity,
+        price: parseInt(furniture.harga),
+    }))
+    let grossAmount = itemDetails.reduce((acc, item) => acc + (item.price * item.quantity), 0)
     let parameterMidtrans = {
-        item_details: furnitureItem.map((furniture) => ({
-            id: furniture.id,
-            name: furniture.nama_furniture,
-            quantity: quantity,
-            price: parseInt(furniture.harga),
-        })),
+        item_details: itemDetails,
         customer_details: {
             first_name: authUser?.name,
             email: authUser?.email,
         },
         transaction_details: {
-            order_id: id,
+            order_id: `TRX-${nanoid(4)}-${nanoid(8)}`,
             gross_amount: harga
-        }
+        },
+        credit_card: {
+            secure: true,
+        },
     }
     const createToken = await snap.createTransactionToken(parameterMidtrans)
     console.log(createToken, parameterMidtrans)

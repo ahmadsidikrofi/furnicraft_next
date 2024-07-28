@@ -25,14 +25,14 @@ model furnitures {
   Store          Store?  @relation(fields: [store_id], references: [id])
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
-  OrderFurniture  OrderFurniture[]
+  // OrderFurniture  OrderFurniture[]
 
   @@index([store_id, nama_furniture, slug])
 }
 
 model cart {
   id             Int     @id @default(autoincrement())
-  id_furniture   BigInt
+  id_furniture   Int
   user_email     String?  @db.VarChar(255)
   nama_furniture String  @db.VarChar(255)
   slug           String  @unique
@@ -50,35 +50,34 @@ model Store {
   furniture      furnitures[]
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
-  OrderFurniture OrderFurniture[]
+  // OrderFurniture OrderFurniture[]
 
   @@index([user_email, slug])
 }
 
-model Orders {
-  id             Int      @id @default(autoincrement())
-  user_email     String
-  nama_furniture String
-  total_harga    Float
-  token          String
-  status         String
-  created_at     DateTime @default(now())
-  updated_at     DateTime @updatedAt
-  OrderFurniture  OrderFurniture[]
+// model Orders {
+//   id             Int      @id @default(autoincrement())
+//   user_email     String
+//   total_harga    Float
+//   token          String
+//   status         String
+//   created_at     DateTime @default(now())
+//   updated_at     DateTime @updatedAt
+//   OrderFurniture  OrderFurniture[]
 
-  @@index([user_email])  
-}
+//   @@index([user_email])  
+// }
 
-model OrderFurniture {
-  id             Int        @id @default(autoincrement())
-  orderId        Int
-  furnitureId    Int
-  storeId        Int
-  orders         Orders     @relation(fields: [orderId], references: [id])
-  furnitures     furnitures @relation(fields: [furnitureId], references: [id])
-  store          Store @relation(fields: [storeId], references: [id])
-  created_at   DateTime @default(now())
-  updated_at   DateTime @updatedAt
+// model OrderFurniture {
+//   id             Int        @id @default(autoincrement())
+//   orderId        Int
+//   furnitureId    Int
+//   storeId        Int
+//   orders         Orders     @relation(fields: [orderId], references: [id])
+//   furnitures     furnitures @relation(fields: [furnitureId], references: [id])
+//   store          Store @relation(fields: [storeId], references: [id])
+//   created_at   DateTime @default(now())
+//   updated_at   DateTime @updatedAt
 
-  @@index([orderId, furnitureId, storeId])
-}
+//   @@index([orderId, furnitureId, storeId])
+// }
