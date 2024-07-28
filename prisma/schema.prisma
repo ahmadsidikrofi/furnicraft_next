@@ -25,6 +25,7 @@ model furnitures {
   Store          Store?  @relation(fields: [store_id], references: [id])
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
+  OrderFurniture  OrderFurniture[]
 
   @@index([store_id, nama_furniture, slug])
 }
@@ -49,7 +50,35 @@ model Store {
   furniture      furnitures[]
   created_at     DateTime @default(now())
   updated_at     DateTime @updatedAt
+  OrderFurniture OrderFurniture[]
 
   @@index([user_email, slug])
 }
 
+model Orders {
+  id             Int      @id @default(autoincrement())
+  user_email     String
+  nama_furniture String
+  total_harga    Float
+  token          String
+  status         String
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+  OrderFurniture  OrderFurniture[]
+
+  @@index([user_email])  
+}
+
+model OrderFurniture {
+  id             Int        @id @default(autoincrement())
+  orderId        Int
+  furnitureId    Int
+  storeId        Int
+  orders         Orders     @relation(fields: [orderId], references: [id])
+  furnitures     furnitures @relation(fields: [furnitureId], references: [id])
+  store          Store @relation(fields: [storeId], references: [id])
+  created_at   DateTime @default(now())
+  updated_at   DateTime @updatedAt
+
+  @@index([orderId, furnitureId, storeId])
+}

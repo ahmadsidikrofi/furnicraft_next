@@ -62,9 +62,9 @@ const SearchFurnitureDashboard = ({ initialFurnitures, detailData }) => {
     const handleDeleteFurniture = async (slug) => {
         setIsLoading(true)
         await axios.delete(`/api/v1/furnitures/${slug}`)
+        .then(router.refresh())
         setTimeout(() => {
             setIsLoading(false)
-            .then(router.refresh())
         }, 3000)
     }
  

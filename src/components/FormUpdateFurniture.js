@@ -42,14 +42,15 @@ const FormUpdateFurniture = ({ storeId, slugStore, dataFurniture }) => {
     const updateFurniture = async (data) => {
         const slug = slugify(data.nama_furniture, { lower: true, replacement: '-', strict: true })
         await axios.put(`/api/v1/furnitures/${dataFurniture.slug}`, { ...data, slug, store_id: storeId })
-        .then(() => {
+        .then(async () => {
             setIsLoading(true)
-            toast.success("Furniture successfully updated", { duration: 2000 })
+            toast.loading("Tunggu...", { duration: 1000 })
+            await new Promise(resolve => setTimeout(resolve, 1000))
+            toast.success("Furniture berhasil dibuat", { duration: 2000 })
+            await new Promise(resolve => setTimeout(resolve, 2000))
+            setIsLoading(false)
+            router.push(`/dashboard/stores/${slugStore}`)
             router.refresh()
-            setTimeout(() => {
-                setIsLoading(false)
-                router.push(`/dashboard/stores/${slugStore}`)
-            }, 3000)
         }).catch (() => {
             toast.error("Furniture fail on update 😅")
         })

@@ -3,12 +3,13 @@
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
-import { LoaderIcon } from "react-hot-toast"
+import toast, { LoaderIcon } from "react-hot-toast"
 
-const CheckoutButton = ({ id, harga, cartUsers }) => {
+const CheckoutButton = ({ id, harga, cartUsers, nama_furniture }) => {
     const [quantity, setQuantity] = useState(1)
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(false)
+    const [token, setToken] = useState('')
     useEffect(() => {
         const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js"
         const snapClientKey = process.env.MIDTRANS_PUBLIC_CLIENT
@@ -23,22 +24,39 @@ const CheckoutButton = ({ id, harga, cartUsers }) => {
             document.body.removeChild(scriptElement)
         }
     }, [])
+     
     const handleCheckout = async() => {
         const data = {
             id: id,
+            name: nama_furniture,
             harga: harga,
-            quantity: quantity
+            quantity: quantity,
         }
         await axios.post('/api/payment', data)
         .then((res) => {
+            const token = res.data.createToken
+            setToken(token)
             setIsLoading(true)
             setTimeout( async () => {
                 setIsLoading(false)
-                console.log(res.data)
-                window.snap.pay(res.data.createToken)
+                if (token) {
+                    window.snap.pay(token, {
+                        onSuccess: () => {
+                            toast.success('Pembayaran berhasil!!', { duration: 1000 })
+                            setTimeout(() => {
+                                router.push('/dashboard/orders')
+                            }, 2000)
+                        },
+                        onClose: () => {
+                            toast.error('Kamu belum menyelesaikan pembayaran', { duration: 1000 })
+                            setTimeout(() => {
+                                router.push('/dashboard/orders')
+                            }, 2000)
+                        }
+                    });
+                }
                 const resDelCart = await axios.delete('/api/v1/cart')
                 if (resDelCart.data.status === 200) {
-                    router.refresh()
                     localStorage.removeItem('cartItems')
                 }
             }, 5000)

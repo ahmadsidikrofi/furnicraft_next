@@ -21,7 +21,10 @@ const CartPage = async () => {
     const formatTotHarga = totalHarga.toLocaleString("id-ID", {
         minimumFractionDigits: 2,
     })
-    const harga = parseInt(totalHarga)
+    const nama_furniture = cartUsers.map((cartUser) => {
+        return cartUser.nama_furniture
+    })
+    const harga = parseInt(totalHarga)  
     return (
         <main>
             <Toaster />
@@ -59,7 +62,7 @@ const CartPage = async () => {
                             <p className="font-medium">Order total</p>
                             <p className="font-normal">Rp {formatTotHarga}</p>
                         </div>
-                        <CheckoutButton id={productId} harga={harga} cartUsers={cartUsers}/>
+                        <CheckoutButton id={productId} harga={harga} cartUsers={cartUsers} nama_furniture={nama_furniture}/>
                     </div>
                 </div>
             </div>

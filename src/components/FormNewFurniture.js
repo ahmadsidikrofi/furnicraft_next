@@ -31,7 +31,7 @@ import slugify from "slugify"
 const FormNewFurniture = ({ storeId, slugStore }) => {
     const form = useForm()
     const router = useRouter()
-    const [isLoading, setIsLoading] = useState()
+    const [isLoading, setIsLoading] = useState(false)
     const [urlGambar, setUrlGambar] = useState('')
 
     useEffect(() => {
@@ -41,14 +41,15 @@ const FormNewFurniture = ({ storeId, slugStore }) => {
     const createFurniture = async (data) => {
         const slug = slugify(data.nama_furniture, { lower: true, replacement: '-', strict: true })
         await axios.post('/api/v1/furnitures', { ...data, slug, store_id: storeId })
-        .then(() => {
-            setIsLoading(true)
-            router.refresh()
-            toast.success("Furniture berhasil dibuat", { duration: 2000 })
-            setTimeout(() => {
-                setIsLoading(false)
-                router.push(`/dashboard/stores/${slugStore}`)
-            }, 3000)
+        .then(async () => {
+            setIsLoading(true);
+            toast.loading("Tunggu...", { duration: 1000 });
+            await new Promise(resolve => setTimeout(resolve, 1000));
+            toast.success("Furniture berhasil dibuat", { duration: 2000 });
+            await new Promise(resolve => setTimeout(resolve, 2000));
+            setIsLoading(false);
+            router.push(`/dashboard/stores/${slugStore}`)
+            router.refresh();
         }).catch (() => {
             toast.error("Furniture gagal ditambahkan 😅")
         })
@@ -152,7 +153,7 @@ const FormNewFurniture = ({ storeId, slugStore }) => {
                 </div>
 
                 <Button onClick={form.handleSubmit(createFurniture)} type="submit" disabled={isLoading ? true : false} className="rounded-full w-full p-3 text-color-primary bg-color-accent2">
-                    {isLoading ? <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> : null} Add Furniture 
+                    {isLoading === true ? <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> : null} Add Furniture 
                 </Button>
             </Form>
         </div>
