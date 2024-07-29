@@ -2,8 +2,23 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import Link from "next/link"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import PendingOrder from "@/components/orders/PendingOrder"
+import { authUserGithub } from "@/libs/auth"
+import prisma from "@/libs/prisma"
 
 const OrdersPage = async () => {
+    const authUser = await authUserGithub()
+    const pendingOrders = await prisma.Orders.findMany({
+        where: { status: "PENDING", user_email: authUser?.email },
+        include: { 
+            OrderFurniture: {
+                include: {
+                    furnitures: true,
+                    store: true
+                }
+            }
+        }
+    })
     return (
         <main>
             <div className="space-y-0.5 px-6 flex justify-between items-center lg:w-[73vw]">
@@ -20,17 +35,20 @@ const OrdersPage = async () => {
                     <TabsList className="grid w-full grid-cols-4">
                         <TabsTrigger value="all">All</TabsTrigger>
                         <TabsTrigger value="pending">Pending</TabsTrigger>
-                        <TabsTrigger value="paid">Paid</TabsTrigger>
+                        <TabsTrigger value="settlement">Settlement</TabsTrigger>
                         <TabsTrigger value="canceled">Canceled</TabsTrigger>
                     </TabsList>
                     <TabsContent value="all">
                         <div className="p-5 border rounded-xl">
                             <div className="flex items-center justify-between">
                                 <h2 className="text-color-accent2 text-xl mb-3">Your Orders</h2>
-                                <p>Pending</p>
+                                <p>All your orders</p>
                             </div>
                             <Separator className="mt-6"/>
                         </div>
+                    </TabsContent>
+                    <TabsContent value="pending">
+                        <PendingOrder pendingOrders={pendingOrders}/>
                     </TabsContent>
                 </Tabs>
             </div>
