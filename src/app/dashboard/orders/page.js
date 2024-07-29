@@ -17,6 +17,9 @@ const OrdersPage = async () => {
                     store: true
                 }
             }
+        },
+        orderBy: {
+            created_at: 'desc'
         }
     })
     return (

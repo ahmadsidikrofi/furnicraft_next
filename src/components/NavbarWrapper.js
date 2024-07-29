@@ -8,7 +8,7 @@ const NavbarWrapper = ({ authUser }) => {
   const router = useRouter();
   const excludedRoutes = ["/sign-in"];
   const isExcludedRoute = excludedRoutes.includes(pathname);
-  if (pathname === "/dashboard/stores" && !authUser) {
+  if ((pathname === "/dashboard/stores" || pathname === "/dashboard/orders") && !authUser) {
     router.push("/sign-in");
     return null;
   }

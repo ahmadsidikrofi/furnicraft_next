@@ -3,17 +3,6 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { authUserGithub } from "@/libs/auth";
 import prisma from "@/libs/prisma";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import Image from "next/image";
-import { AspectRatio } from "@/components/ui/aspect-ratio";
-import { getRandomPatternStyle } from "@/libs/generate-pattern";
 import StoreCard from "@/components/StoreCard";
 
 const StoresPage = async () => {
@@ -52,7 +41,6 @@ const StoresPage = async () => {
           </Link>
         </div>
       )}
-
     </div>
   );
 };

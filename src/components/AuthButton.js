@@ -39,10 +39,12 @@ const AuthButton = ({ authUser }) => {
                         <User size={14}/> 
                         <p>Profile</p>
                     </DropdownMenuItem>
-                    <DropdownMenuItem disabled className="flex gap-3">
-                        <Bag />
-                        <p>Order</p>
-                    </DropdownMenuItem>
+                    <Link href="/dashboard/orders">
+                        <DropdownMenuItem className="flex gap-3">
+                            <Bag />
+                            <p>Order</p>
+                        </DropdownMenuItem>
+                    </Link>
                     <Link href="/dashboard/stores">
                         <DropdownMenuItem className="flex gap-3">
                             <DashboardIcon />
