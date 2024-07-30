@@ -53,7 +53,7 @@ const CancelOrder = ({ canceledOrders }) => {
                                                     <DropdownMenuSeparator />
                                                     <DropdownMenuItem className="flex gap-3 cursor-pointer">
                                                         <Invoice className="h-5 w-5" />
-                                                        <p>Detail</p>
+                                                        <p>Invoice</p>
                                                     </DropdownMenuItem>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
@@ -63,26 +63,30 @@ const CancelOrder = ({ canceledOrders }) => {
                                     <Separator className="mt-6" />
 
                                     {canceledOrder.OrderFurniture.map((orderFurniture, i) => (
-                                        <div key={i} className="flex items-start gap-3 my-4">
-                                            <Image
-                                                width={768}
-                                                height={768}
-                                                src={orderFurniture.furnitures.image}
-                                                className="rounded-[15px] object-cover w-60 h-60"
-                                                alt={orderFurniture.furnitures.nama_furniture}
-                                            />
-                                            <div className="flex gap-2 mt-1 text-lg">
-                                                <div className="flex flex-col">
-                                                    <p className="text-color-secondary font-bold">{orderFurniture.furnitures.nama_furniture}</p>
-                                                    <p className="text-color-grey font-light">{orderFurniture.store.nama_toko}</p>
+                                        <div key={i}>
+                                            <div className="flex items-start gap-3 my-4">
+                                                <Image
+                                                    width={768}
+                                                    height={768}
+                                                    src={orderFurniture.furnitures.image}
+                                                    className="rounded-[15px] object-cover w-60 h-60 max-sm:w-36 max-sm:h-36"
+                                                    alt={orderFurniture.furnitures.nama_furniture}
+                                                />
+                                                <div className="flex gap-2 mt-1 text-lg">
+                                                    <div className="flex flex-col">
+                                                        <p className="text-color-secondary font-bold">{orderFurniture.furnitures.nama_furniture}</p>
+                                                        <p className="text-color-grey font-light max-sm:text-sm">{orderFurniture.store.nama_toko}</p>
+                                                        <p className="text-sky-500 text-sm font-medium md:hidden">Rp {orderFurniture.furnitures.harga.toLocaleString("id-ID", { minimumFractionDigits: 2 })}</p>
+                                                    </div>
+                                                </div>
+                                                <div className="ml-auto mt-2 max-sm:hidden sm:hidden md:block">
+                                                    <p className="text-sky-500 font-medium">Rp {orderFurniture.furnitures.harga.toLocaleString("id-ID", { minimumFractionDigits: 2 })}</p>
                                                 </div>
                                             </div>
-                                            <div className="ml-auto mt-2">
-                                                <p className="text-sky-500 font-medium">Rp {orderFurniture.furnitures.harga.toLocaleString("id-ID", { minimumFractionDigits: 2 })}</p>
-                                            </div>
+                                            <Separator />
                                         </div>
                                     ))}
-                                    <Separator />
+                                    <Separator className="h-[2px]" />
                                     <div className="flex items-center justify-between font-bold text-lg mt-3 p-2">
                                         <p className="text-color-secondary">Total harga</p>
                                         <p className="text-color-secondary">Rp {totalHarga.toLocaleString("id-ID", { minimumFractionDigits: 2 })}</p>

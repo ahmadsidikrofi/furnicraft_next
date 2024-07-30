@@ -37,6 +37,20 @@ const OrdersPage = async () => {
             created_at: 'desc'
         }
     })
+    const settleOrder = await prisma.Orders.findMany({
+        where: { status: "SETTLEMENT", user_email: authUser?.email },
+        include: {
+            OrderFurniture: {
+                include: {
+                    furnitures: true,
+                    store: true
+                }
+            }
+        },
+        orderBy: {
+            created_at: 'desc'
+        }
+    })
     return (
         <main>
             <div className="space-y-0.5 px-6 flex justify-between items-center lg:w-[73vw]">
@@ -53,23 +67,22 @@ const OrdersPage = async () => {
                     <TabsList className="grid w-full grid-cols-4">
                         <TabsTrigger value="all">All</TabsTrigger>
                         <TabsTrigger value="pending">Pending</TabsTrigger>
-                        <TabsTrigger value="settlement">Settlement</TabsTrigger>
+                        <TabsTrigger value="settlement">Paid</TabsTrigger>
                         <TabsTrigger value="canceled">Canceled</TabsTrigger>
                     </TabsList>
                     <TabsContent value="all">
-                        <div className="p-5 border rounded-xl">
-                            <div className="flex items-center justify-between">
-                                <h2 className="text-color-accent2 text-xl mb-3">Your Orders</h2>
-                                <p>All your orders</p>
-                            </div>
-                            <Separator className="mt-6"/>
-                        </div>
+                        {pendingOrders < 1 ? null : 
+                            <PendingOrder pendingOrders={pendingOrders}/>
+                        }
+                        {canceledOrders < 1 ? null : 
+                            <CancelOrder canceledOrders={canceledOrders}/>
+                        }
                     </TabsContent>
                     <TabsContent value="pending">
                         <PendingOrder pendingOrders={pendingOrders}/>
                     </TabsContent>
                     <TabsContent value="settlement">
-                        <SettlementOrder />
+                        <SettlementOrder settleOrder={settleOrder}/>
                     </TabsContent>
                     <TabsContent value="canceled">
                         <CancelOrder canceledOrders={canceledOrders}/>

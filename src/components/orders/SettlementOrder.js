@@ -13,10 +13,11 @@ import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 
-const SettlementOrder = () => {
+const SettlementOrder = ({ settleOrder }) => {
     return (
         <>
-            <div className="flex items-center justify-between">
+            {settleOrder.length < 1 ? <p className="text-xl font-semibold text-color-secondary text-center mt-10">No orders yet!</p> : null}
+            {/* <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2 ">
                     <TeaBag className="h-6 w-6 text-color-accent2" />
                     <h2 className="text-color-accent2 text-lg">Your Orders</h2>
@@ -47,7 +48,7 @@ const SettlementOrder = () => {
                         </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
-            </div>
+            </div> */}
             <Separator className="mt-6" />
         </>
     )
