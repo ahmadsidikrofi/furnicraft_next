@@ -46,7 +46,7 @@ const FormUpdateFurniture = ({ storeId, slugStore, dataFurniture }) => {
             setIsLoading(true)
             toast.loading("Tunggu...", { duration: 1000 })
             await new Promise(resolve => setTimeout(resolve, 1000))
-            toast.success("Furniture berhasil dibuat", { duration: 2000 })
+            toast.success("Furniture berhasil di update", { duration: 2000 })
             await new Promise(resolve => setTimeout(resolve, 2000))
             setIsLoading(false)
             router.push(`/dashboard/stores/${slugStore}`)

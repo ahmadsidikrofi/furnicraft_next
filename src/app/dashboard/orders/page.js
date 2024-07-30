@@ -1,16 +1,31 @@
-import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
-import Link from "next/link"
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import PendingOrder from "@/components/orders/PendingOrder"
 import { authUserGithub } from "@/libs/auth"
 import prisma from "@/libs/prisma"
+import SettlementOrder from "@/components/orders/SettlementOrder"
+import CancelOrder from "@/components/orders/CancelOrder"
 
 const OrdersPage = async () => {
     const authUser = await authUserGithub()
     const pendingOrders = await prisma.Orders.findMany({
         where: { status: "PENDING", user_email: authUser?.email },
         include: { 
+            OrderFurniture: {
+                include: {
+                    furnitures: true,
+                    store: true
+                }
+            }
+        },
+        orderBy: {
+            created_at: 'desc'
+        }
+    })
+    const canceledOrders = await prisma.Orders.findMany({
+        where: { status: "CANCELED", user_email: authUser?.email },
+        include: {
             OrderFurniture: {
                 include: {
                     furnitures: true,
@@ -52,6 +67,12 @@ const OrdersPage = async () => {
                     </TabsContent>
                     <TabsContent value="pending">
                         <PendingOrder pendingOrders={pendingOrders}/>
+                    </TabsContent>
+                    <TabsContent value="settlement">
+                        <SettlementOrder />
+                    </TabsContent>
+                    <TabsContent value="canceled">
+                        <CancelOrder canceledOrders={canceledOrders}/>
                     </TabsContent>
                 </Tabs>
             </div>

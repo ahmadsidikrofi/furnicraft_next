@@ -56,7 +56,7 @@ model Store {
 }
 
 model Orders {
-  id             Int      @id @default(autoincrement())
+  id             String      @id
   user_email     String
   total_harga    Float
   token          String
@@ -70,7 +70,7 @@ model Orders {
 
 model OrderFurniture {
   id             Int        @id @default(autoincrement())
-  orderId        Int
+  orderId        String
   furnitureId    Int
   storeId        Int
   orders         Orders     @relation(fields: [orderId], references: [id])

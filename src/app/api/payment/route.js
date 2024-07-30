@@ -18,6 +18,7 @@ export async function POST (request) {
             }
         }
     })
+    const orderId = `TRX-${nanoid(4)}-${nanoid(8)}`
     const itemDetails = furnitureItem.map((furniture) => ({
         id: furniture.id.toString(),
         name: furniture.nama_furniture,
@@ -32,7 +33,7 @@ export async function POST (request) {
             email: authUser?.email,
         },
         transaction_details: {
-            order_id: `TRX-${nanoid(4)}-${nanoid(8)}`,
+            order_id: orderId,
             gross_amount: harga
         },
         credit_card: {
@@ -43,17 +44,18 @@ export async function POST (request) {
     const createToken = await snap.createTransactionToken(parameterMidtrans)
     const createOrder = await prisma.Orders.create({
         data: {
+            id: orderId,
             user_email: authUser?.email,
             total_harga: harga,
             token: createToken,
             status: "PENDING"
         }
-    });
+    })
 
     for (let furniture of furnitureItem) {
         await prisma.OrderFurniture.create({
             data: {
-                orderId: parseInt(createOrder.id),
+                orderId: createOrder.id,
                 furnitureId: furniture.id, 
                 storeId: furniture.store_id, 
             }
