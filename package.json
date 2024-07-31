@@ -26,6 +26,7 @@
     "axios": "^1.7.2",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
+    "embla-carousel-react": "^8.1.7",
     "framer-motion": "^11.3.8",
     "midtrans-client": "^1.3.1",
     "nanoid": "^5.0.7",
