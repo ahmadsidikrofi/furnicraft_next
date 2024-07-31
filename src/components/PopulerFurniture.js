@@ -8,7 +8,7 @@ const PopulerFurniture = async () => {
     const authUser = await authUserGithub()
     const email = authUser?.email
     return (
-        <main className="mt-40">
+        <main className="mt-24">
             <HeaderSection 
                 titleHeader="Populer Furniture"
                 descHeader="Explore all interior furniture we offer from"

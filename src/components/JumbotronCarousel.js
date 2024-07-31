@@ -35,7 +35,7 @@ const JumbotronCarousel = () => {
                     {carouselItems.map((item) => (
                         <CarouselItem key={item.id}>
                             <Image 
-                                className={`object-cover w-full ${isMobile ? 'h-[50vh]' : 'h-[80vh]'} rounded-xl`} 
+                                className={`object-cover w-full ${isMobile ? 'h-[50vh]' : 'h-[80vh]'} rounded-[20px]`} 
                                 src={isMobile ? item.mobile : item.desktop} 
                                 width={2160} 
                                 height={2160} 
