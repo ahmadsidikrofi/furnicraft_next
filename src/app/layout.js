@@ -12,10 +12,14 @@ export const metadata = {
   description: 'Memberikan layanan konsultasi gratis kepada setiap pelanggan untuk memahami kebutuhan dan preferensi mereka terhadap ruangan interior yang ingin dibuat.',
 }
 
+
 export default async function RootLayout({ children }) {
   const authUser = await authUserGithub()
   return (
     <html lang="en">
+      <head>
+        <link rel="icon" href="/icon.png" sizes="any" />
+      </head>
       <body className={poppins.className}>
         <NavbarWrapper authUser={authUser}/>
         {children}
