@@ -71,18 +71,18 @@ const Navbar = ({authUser}) => {
                                                 <Link className='flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md' href='/'>
                                                     {/* <Icons.logo className='h-6 w-6' /> */}
                                                     <div className='mb-2 mt-4 text-lg font-medium'>Furnicraft</div>
-                                                    <p className='text-sm leading-tight text-muted-foreground'>An open source ecommerce furniture built with new tech using Next.js</p>
+                                                    <p className='text-sm leading-tight text-muted-foreground'>Discover cutting-edge furniture shopping, powered by Next.js technology. Shop smarter, live better!</p>
                                                 </Link>
                                             </NavigationMenuLink>
                                         </li>
-                                        <ListItem href='/products' title='Products'>
-                                            All the products we have to offer
+                                        <ListItem href='/furnitures' title='Furnitures'>
+                                            Explore our elegant and stylish furniture collection
                                         </ListItem>
-                                        <ListItem href='/#categories' title='Categories'>
-                                            See all categories we have
+                                        <ListItem href='/categories' title='Categories'>
+                                            Discover of our collected categories
                                         </ListItem>
                                         <ListItem href='/dashboard/stores' title='Create store'>
-                                            Create store and start selling products
+                                            Open your store and sell now
                                         </ListItem>
                                     </ul>
                                 </NavigationMenuContent>
@@ -92,16 +92,16 @@ const Navbar = ({authUser}) => {
                                 <NavigationMenuContent>
                                     <ul className='grid w-[400px] gap-3 p-6 md:w-[500px] md:grid-cols-2'>
                                         <ListItem href='' title='Ruang tamu'>
-                                            Explore the ruang tamu category
+                                            Browse our stylish ruang tamu collection
                                         </ListItem>
                                         <ListItem href='' title='Kamar tidur'>
-                                            Explore the kamar tidur category
+                                            Discover cozy kamar tidur essentials
                                         </ListItem>
-                                        <ListItem href='' title='Kitchen set'>
-                                            Explore the kitchen set category
+                                        <ListItem href='' title='Ruang dapur'>
+                                            Find perfect kitchen set solutions
                                         </ListItem>
                                         <ListItem href='' title='Kamar mandi'>
-                                            Explore the kamar mandi category
+                                            Elevate your kamar mandi experience
                                         </ListItem>
                                     </ul>
                                 </NavigationMenuContent>

@@ -2,6 +2,7 @@ import { Poppins } from 'next/font/google'
 import "./globals.css";
 import NavbarWrapper from '@/components/NavbarWrapper';
 import { authUserGithub } from '@/libs/auth';
+import Footer from '@/components/Footer';
 // import 'react-loading-skeleton/dist/skeleton.css'
 
 const poppins = Poppins({ subsets: ['latin'], weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'] })
@@ -18,6 +19,7 @@ export default async function RootLayout({ children }) {
       <body className={poppins.className}>
         <NavbarWrapper authUser={authUser}/>
         {children}
+        {/* <Footer /> */}
       </body>
     </html>
   );

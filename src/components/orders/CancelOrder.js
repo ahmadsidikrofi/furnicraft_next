@@ -14,6 +14,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Image from "next/image"
+import Link from "next/link"
 
 const CancelOrder = ({ canceledOrders }) => {
     const groupedOrders = canceledOrders.reduce((groups, order) => {
@@ -51,10 +52,12 @@ const CancelOrder = ({ canceledOrders }) => {
                                                 <DropdownMenuContent>
                                                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                                     <DropdownMenuSeparator />
-                                                    <DropdownMenuItem className="flex gap-3 cursor-pointer">
-                                                        <Invoice className="h-5 w-5" />
-                                                        <p>Invoice</p>
-                                                    </DropdownMenuItem>
+                                                    <Link href={`/invoice/${canceledOrder.id}`}>
+                                                        <DropdownMenuItem className="flex gap-3 cursor-pointer">
+                                                            <Invoice className="h-5 w-5" />
+                                                            <p>Invoice</p>
+                                                        </DropdownMenuItem>
+                                                    </Link>
                                                 </DropdownMenuContent>
                                             </DropdownMenu>
                                         </div>
