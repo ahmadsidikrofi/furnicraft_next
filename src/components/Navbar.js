@@ -2,7 +2,7 @@
 import { List, MagnifyingGlass, ShoppingCartSimple, UserCircle } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import SidebarMenu from "../components/Sidebar"
 import SearchFurnitems from "./SearchFurnitems";
@@ -23,6 +23,7 @@ const Navbar = ({authUser}) => {
     const [cartCount, setCartCount] = useState(0)
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
+    const keywordCategoriesRef = useRef()
     const router = useRouter()
 
     const clickToCart = () => {
@@ -42,6 +43,10 @@ const Navbar = ({authUser}) => {
     const handleOpenSearch = () => {
         setIsSearchOpen((prevState) => !prevState)
         document.body.classList.add('overflow-hidden')
+    }
+
+    const handleKeywordCategories = (key) => {
+        router.push(`/categories/${key}`)
     }
 
     return ( 
@@ -91,16 +96,16 @@ const Navbar = ({authUser}) => {
                                 <NavigationMenuTrigger>Categories</NavigationMenuTrigger>
                                 <NavigationMenuContent>
                                     <ul className='grid w-[400px] gap-3 p-6 md:w-[500px] md:grid-cols-2'>
-                                        <ListItem href='' title='Ruang tamu'>
+                                        <ListItem onClick={() => handleKeywordCategories('Ruang tamu')} title='Ruang tamu'>
                                             Browse our stylish ruang tamu collection
                                         </ListItem>
-                                        <ListItem href='' title='Kamar tidur'>
+                                        <ListItem onClick={() => handleKeywordCategories('Kamar tidur')} title='Kamar tidur'>
                                             Discover cozy kamar tidur essentials
                                         </ListItem>
-                                        <ListItem href='' title='Ruang dapur'>
+                                        <ListItem onClick={() => handleKeywordCategories('Ruang dapur')} title='Ruang dapur'>
                                             Find perfect kitchen set solutions
                                         </ListItem>
-                                        <ListItem href='' title='Kamar mandi'>
+                                        <ListItem onClick={() => handleKeywordCategories('Kamar mandi')} title='Kamar mandi'>
                                             Elevate your kamar mandi experience
                                         </ListItem>
                                     </ul>

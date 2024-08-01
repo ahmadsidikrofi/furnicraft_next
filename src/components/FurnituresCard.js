@@ -12,6 +12,9 @@ const FurnituresCard = ({ furnitures, email }) => {
     const [isLoading, setIsLoading] = useState(true)
     const [cartItems, setCartItems] = useState([])
     useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 3000)
         const storedCart = JSON.parse(localStorage.getItem('cartItems')) || []
         setCartItems(storedCart)
     }, [])
