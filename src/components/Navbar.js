@@ -30,11 +30,11 @@ const Navbar = ({authUser}) => {
         authUser ? router.push('/cart') : router.push('/sign-in')
     }
 
-    const handleCountCart = async () => {
-        const res = await axios.get('/api/v1/cart')
-        setCartCount(res.data.countCart)
-    }
-    handleCountCart()
+    // const handleCountCart = async () => {
+    //     const res = await axios.get('/api/v1/cart')
+    //     setCartCount(res.data.countCart)
+    // }
+    // handleCountCart()
 
     const miniMenuNavbar = () => {
         setIsSidebarOpen(true)
