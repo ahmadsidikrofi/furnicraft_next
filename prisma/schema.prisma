@@ -1,8 +1,8 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
+// // This is your Prisma schema file,
+// // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+// // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
   provider = "prisma-client-js"
@@ -17,10 +17,10 @@ model furnitures {
   id             Int     @id @default(autoincrement())
   nama_furniture String  @db.VarChar(255)
   slug           String  @unique
-  deskripsi      String  @db.LongText
+  deskripsi      String  @db.Text
   harga          Float
   categories     String  @db.VarChar(155)
-  image          String? @db.LongText
+  image          String? @db.Text
   store_id       Int
   Store          Store?  @relation(fields: [store_id], references: [id])
   created_at     DateTime @default(now())
@@ -38,14 +38,15 @@ model cart {
   slug           String  @unique
   harga          Float
   categories     String  @db.VarChar(155)
-  image          String? @db.LongText
+  image          String? @db.Text
 }
 
 model Store {
   id             Int      @id @default(autoincrement())
   nama_toko      String
   slug           String?  @unique
-  deskripsi      String?  @db.LongText
+  deskripsi      String?  @db.Text
+  telp           String?
   user_email     String   @db.VarChar(255)
   furniture      furnitures[]
   created_at     DateTime @default(now())

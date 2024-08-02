@@ -3,11 +3,11 @@ import slugify from "slugify"
 
 export async function PUT (request, { params }) {
     const slug = params.slug
-    const { nama_toko, deskripsi } = await request.json()
+    const { nama_toko, deskripsi, telp } = await request.json()
     const updateStore = await prisma.Store.update({
         where: { slug: slug },
         data: {
-            nama_toko, deskripsi, slug: slugify(nama_toko, { replacement: '-', lower: true, strict: true })
+            nama_toko, deskripsi, telp, slug: slugify(nama_toko, { replacement: '-', lower: true, strict: true })
         }
     })
     if (!updateStore) return Response.json({ status: 500, isUpdate: false, message: "Terjadi kesalahan saat mengubah data" })

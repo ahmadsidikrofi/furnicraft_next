@@ -15,16 +15,26 @@ import { Textarea } from "@/components/ui/textarea"
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from 'react-hot-toast';
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup";
 import axios from "axios"
 import slugify from "slugify"
 import { useState } from "react"
 import { ReloadIcon } from "@radix-ui/react-icons"
 
 const FormNewStore = ({ email }) => {
-    const form = useForm()
     const router = useRouter()
     const [isLoading, setIsLoading] = useState()
-
+    const schema = yup.object().shape({
+        nama_toko: yup.string().required("Nama toko wajib diisi."),
+        telp: yup
+        .string()
+        .matches(/^[1-9][0-9]*$/, "Nomor telepon tidak boleh diawali dengan 0.")
+        .required("Nomor telepon wajib diisi."),
+    })
+    const form = useForm({
+        resolver: yupResolver(schema),
+    })
     const addNewStore = async (data) => {
         const slug = slugify(data.nama_toko, { lower: true, replacement: '-', strict: true })
         await axios.post('/api/v1/store', { ...data, slug, user_email: email })
@@ -46,19 +56,39 @@ const FormNewStore = ({ email }) => {
             <div>
                 <Toaster />
                 <Form {...form}>
-                    <FormField
-                        control={form.control}
-                        name="nama_toko"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Store name</FormLabel>
-                                <FormControl>
-                                    <Input placeholder="Input your store name here" {...field} />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
+                    <div className="flex items-center gap-3">
+                        <FormField
+                            control={form.control}
+                            name="nama_toko"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>Store name</FormLabel>
+                                    <FormControl>
+                                        <Input placeholder="Input your store name here" {...field} />
+                                    </FormControl>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                        <FormField
+                            control={form.control}
+                            name="telp"
+                            render={({ field }) => (
+                                <FormItem className="w-full">
+                                    <FormLabel>Phone number</FormLabel>
+                                    <div className="relative">
+                                        <p className='absolute text-sm w-8 inset-y-0 grid place-items-center border-r'>
+                                            +62
+                                        </p>
+                                        <FormControl>
+                                            <Input placeholder="Input your number phone here" {...field} type='number' className='pl-10' />
+                                        </FormControl>
+                                    </div>
+                                    <FormMessage />
+                                </FormItem>
+                            )}
+                        />
+                    </div>
                     <FormField
                         control={form.control}
                         name="deskripsi"
