@@ -1,7 +1,7 @@
 'use client'
 import { Invoice, TeaBag, Wallet, XCircle } from "@phosphor-icons/react"
 import { Separator } from "../ui/separator"
-import { Badge } from "@/components/ui/badge"
+import { Badge } from "@/components/ui/Badge"
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -21,7 +21,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
-import { Button } from "../ui/button"
+import { Button } from "../ui/Button"
 import { DotsVerticalIcon, ReloadIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
 import { useState } from "react"

@@ -1,6 +1,6 @@
 'use client'
 import { DownloadIcon } from "@radix-ui/react-icons"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button"
 const DownloadInvoice = () => {
     return (
         <>

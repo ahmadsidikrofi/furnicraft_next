@@ -5,7 +5,7 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/Card"
 import { AspectRatio } from "@/components/ui/aspect-ratio";
 import Link from "next/link";
 import { Skeleton } from "../ui/skeleton";

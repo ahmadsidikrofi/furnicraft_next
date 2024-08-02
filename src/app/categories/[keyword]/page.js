@@ -14,7 +14,7 @@ const FurnitureKeyword = async ({params}) => {
                 <div className="relative ">
                     <div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 rounded-xl"></div>
                     <Image
-                        className={`object-cover w-full h-[480px] rounded-xl mt-16 mb-20`}
+                        className={`object-cover w-full h-[480px] rounded-xl mt-10 mb-20`}
                         src={`/${decodeKeyword}.jpg`}
                         width={2160}
                         height={2160}

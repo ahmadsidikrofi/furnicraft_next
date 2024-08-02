@@ -32,7 +32,7 @@ import {
     AlertDialogTrigger,
   } from "@/components/ui/alert-dialog"
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "./ui/Button";
 import { DotsHorizontalIcon, EyeOpenIcon, PlusCircledIcon, ReloadIcon } from "@radix-ui/react-icons"
 import {  PencilCircle, Trash } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";

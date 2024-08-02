@@ -8,12 +8,12 @@ import {
     CardFooter,
     CardHeader,
     CardTitle,
-} from "@/components/ui/card"
+} from "@/components/ui/Card"
 import { AspectRatio } from "./ui/aspect-ratio"
 import Link from "next/link"
 import StoreSkeleton from "./skeleton/StoreSkeleton"
 import { getRandomPatternStyle } from "@/libs/generate-pattern"
-import { Button } from "./ui/button"
+import { Button } from "./ui/Button"
 
 const StoreCard = ({ userStores }) => {
     const [isLoading, setIsLoading] = useState(true)

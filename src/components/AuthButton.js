@@ -1,6 +1,6 @@
 'use client'
 import Link from "next/link"
-import { Button } from "./ui/button"
+import { Button } from "./ui/Button"
 import { Bag, SignOut, User } from "@phosphor-icons/react"
 import {
     DropdownMenu,

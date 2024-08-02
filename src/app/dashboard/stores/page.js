@@ -1,5 +1,5 @@
 import { Separator } from "@/components/ui/separator";
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import Link from "next/link";
 import { authUserGithub } from "@/libs/auth";
 import prisma from "@/libs/prisma";

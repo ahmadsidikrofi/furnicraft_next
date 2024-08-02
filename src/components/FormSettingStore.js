@@ -24,7 +24,7 @@ import {
   
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/Button";
 import { useRouter } from "next/navigation";
 import toast, { Toaster } from 'react-hot-toast';
 import axios from "axios";

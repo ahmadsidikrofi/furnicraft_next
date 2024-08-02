@@ -5,7 +5,7 @@ import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
+import { Button } from "@/components/ui/Button"
 import toast, { Toaster } from 'react-hot-toast'
 import axios from "axios"
 import { ReloadIcon } from "@radix-ui/react-icons"

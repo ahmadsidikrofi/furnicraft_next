@@ -1,9 +1,9 @@
 'use client'
 import { Invoice, TeaBag, Wallet, XCircle } from "@phosphor-icons/react"
 import { Separator } from "../ui/separator"
-import { Button } from "../ui/button"
+import { Button } from "../ui/Button"
 import { DotsVerticalIcon } from "@radix-ui/react-icons"
-import { Badge } from "../ui/badge"
+import { Badge } from "../ui/Badge"
 import toast, { Toaster } from 'react-hot-toast'
 import {
     DropdownMenu,

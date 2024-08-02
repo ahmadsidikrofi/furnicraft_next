@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { cn } from "@/libs/utils"
-import { buttonVariants } from "./ui/button";
+import { buttonVariants } from "./ui/Button";
 
 const SidebarDashboard = ({ className, items, ...props }) => {
   const pathname = usePathname();

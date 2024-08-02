@@ -10,8 +10,8 @@ import {
 import { Separator } from "../ui/separator";
 import { Invoice, TeaBag, Wallet, XCircle } from "@phosphor-icons/react";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
-import { Button } from "../ui/button";
-import { Badge } from "../ui/badge";
+import { Button } from "../ui/Button";
+import { Badge } from "../ui/Badge";
 
 const SettlementOrder = ({ settleOrder }) => {
     return (
