@@ -53,10 +53,10 @@ const OrdersPage = async () => {
     })
     return (
         <main>
-            <div className="space-y-0.5 px-6 flex justify-between items-center lg:w-[73vw]">
+            <div className="space-y-0.5 sm:px-6 flex justify-between items-center lg:w-[73vw]">
                 <div>
-                    <h2 className="text-3xl font-bold tracking-tight text-color-accent2">Orders</h2>
-                    <p className="text-muted-foreground">
+                    <h2 className="sm:text-md text-3xl font-bold tracking-tight text-color-accent2">Orders</h2>
+                    <p className="sm:text-sm text-muted-foreground">
                         Any Transaction Of Yours
                     </p>
                 </div>

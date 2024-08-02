@@ -13,10 +13,10 @@ const StoresPage = async () => {
   })
   return (
     <div>
-      <div className="space-y-0.5 px-6 flex justify-between items-center lg:w-[73vw]">
+      <div className="space-y-0.5 max-sm:px-0 sm:px-6 flex justify-between items-center lg:w-[73vw]">
         <div>
-          <h2 className="text-2xl font-bold tracking-tight text-color-accent2">Stores</h2>
-          <p className="text-muted-foreground">
+          <h2 className="max-sm:text-md text-2xl font-bold tracking-tight text-color-accent2">Stores</h2>
+          <p className="max-sm:text-[13px] text-muted-foreground">
             Manage your store here.
           </p>
         </div>

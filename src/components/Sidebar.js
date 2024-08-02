@@ -3,8 +3,10 @@ import { CaretCircleDown, CaretCircleUp, XCircle } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useRouter } from "next/navigation";
 
 const SidebarMenu = ({ setIsSidebarOpen }) => {
+    const router = useRouter()
     const [closeSidebar, setCloseSidebar] = useState(false)
     const [wrapSidebarMenu, setWrapSidebarMenu] = useState({
         myDashboard: true,
@@ -21,6 +23,9 @@ const SidebarMenu = ({ setIsSidebarOpen }) => {
         setCloseSidebar(true)
         setIsSidebarOpen(false)
         document.body.classList.remove('overflow-hidden');
+    }
+    const handleKeywordCategories = (key) => {
+        router.push(`/categories/${key}`)
     }
     return ( 
         <>
@@ -47,7 +52,7 @@ const SidebarMenu = ({ setIsSidebarOpen }) => {
                                         {wrapSidebarMenu.myDashboard ? <CaretCircleUp size={24} /> : <CaretCircleDown size={24} />}
                                     </div>
                                     <ul className={`${wrapSidebarMenu.myDashboard ? null : 'hidden'} opacity-95 text-color-grey pb-5`} >
-                                        <li><Link href={'/checkout'}>Orders</Link></li>
+                                        <li><Link href={'/dashboard/orders'}>Orders</Link></li>
                                     </ul>
                                     <hr className="w-[85%] opacity-20 border-color-grey" />
                                     <div onClick={() => handleWrapSidebarMenu('lobby')} className="cursor-pointer flex justify-between items-center">
@@ -55,8 +60,8 @@ const SidebarMenu = ({ setIsSidebarOpen }) => {
                                         {wrapSidebarMenu.lobby ? <CaretCircleUp size={24} /> : <CaretCircleDown size={24} />}
                                     </div>
                                     <ul className={`${wrapSidebarMenu.lobby ? null : 'hidden'} opacity-95 text-color-grey pb-5`}>
-                                        <li className="pb-2"><Link href={'/checkout'}>Product</Link></li>
-                                        <li><Link href={'/checkout'}>Categories</Link></li>
+                                        <li className="pb-2"><Link href={'/furnitures'}>Furnitures</Link></li>
+                                        <li><Link href={'/categories'}>Categories</Link></li>
                                     </ul>
                                     <hr className="w-[85%] opacity-20 border-color-grey" />
                                     <div onClick={() => handleWrapSidebarMenu('categories')} className="cursor-pointer flex justify-between items-center">
@@ -64,10 +69,10 @@ const SidebarMenu = ({ setIsSidebarOpen }) => {
                                         {wrapSidebarMenu.categories ? <CaretCircleUp size={24} /> : <CaretCircleDown size={24} />}
                                     </div>
                                     <ul className={`${wrapSidebarMenu.categories ? null : 'hidden'} opacity-95 text-color-grey pb-5`}>
-                                        <li className="pb-2"><Link href={'/checkout'}>Kamar tidur</Link></li>
-                                        <li className="pb-2"><Link href={'/checkout'}>Kitchen set</Link></li>
-                                        <li className="pb-2"><Link href={'/checkout'}>Kamar mandi</Link></li>
-                                        <li><Link href={'/checkout'}>Living room</Link></li>
+                                        <li className="pb-2 cursor-pointer"><div onClick={() => handleKeywordCategories('Ruang tamu')}>Ruang tamu</div></li>
+                                        <li className="pb-2 cursor-pointer"><div onClick={() => handleKeywordCategories('Ruang dapur')}>Ruang dapur</div></li>
+                                        <li className="pb-2 cursor-pointer"><div onClick={() => handleKeywordCategories('Kamar mandi')}>Kamar mandi</div></li>
+                                        <li className="cursor-pointer"><div onClick={() => handleKeywordCategories('Kamar tidur')}>Kamar tidur</div></li>
                                     </ul>
                                 </div>
                             </motion.div>

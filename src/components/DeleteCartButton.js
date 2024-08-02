@@ -20,7 +20,7 @@ const DeleteCartButton = ({ detailSlug, toast}) => {
     }
     return (
         <div>
-            <button onClick={handleDeleteCart} className="shadow-lg py-1 w-8 rounded-full border-[1px] border-opacity-20 border-color-grey flex justify-center lg:ml-20 md:ml-48 sm:ml-auto max-sm:ml-44">
+            <button onClick={handleDeleteCart} className="shadow-lg py-1 w-8 rounded-full border-[1px] border-opacity-20 border-color-grey flex justify-center lg:ml-20 md:ml-48 sm:ml-auto max-sm:ml-32">
                 <XLogo  className="w-5 h-5"/>
             </button>
         </div>

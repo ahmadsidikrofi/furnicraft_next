@@ -74,12 +74,12 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
                     <div>
                         <Link href={`/furnitures/${furniture.slug}`}>
                             <div className="p-2 border-color-accent border-[1px] text-color-secondary rounded-[23px] shadow-xl hover:shadow-2xl transition-all ease-linear">
-                                <Image src={furniture.image || ''} width={700} height={700} alt="..." className="w-full object-cover xl:h-64 lg:h-64 h-96 rounded-[20px] hover:transition-all hover:scale-[1.08]" />
+                                <Image src={furniture.image || ''} width={768} height={768} alt="..." className="w-full object-cover xl:h-64 md:h-64 h-96 rounded-[20px] hover:transition-all hover:scale-[1.08]" />
                                 <div className="p-2">
                                     <p className="font-normal text-sm py-2">{furniture.categories}</p>
                                     <p className="font-semibold text-xl mb-5">
                                         {furniture.nama_furniture.length > 19 ? 
-                                            furniture.nama_furniture.substring(0, 19) + "..." 
+                                            furniture.nama_furniture.substring(0, 15) + "..." 
                                             : furniture.nama_furniture
                                         }
                                     </p>

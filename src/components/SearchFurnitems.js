@@ -15,7 +15,7 @@ const SearchFurnitems = ({ setIsSearchOpen }) => {
         <div className="fixed inset-0 z-20 bg-color-primary bg-opacity-50 backdrop-blur-sm" onClick={handleCloseSearchbar}></div>
         <div className="sticky z-20">
             <div className="fixed top-24 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <motion.div className="p-3 w-[80vh] shadow-lg flex justify-between items-center bg-color-accent2 rounded-lg text-color-primary"
+                <motion.div className="p-3  max-sm:w-[120%] md:w-[80vh] shadow-lg flex justify-between items-center bg-color-accent2 rounded-lg text-color-primary"
                     initial={{ y: -500, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
                     transition={{ type: 'spring', duration: 1 }}

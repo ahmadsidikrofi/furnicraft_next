@@ -5,7 +5,7 @@ import Image from "next/image"
 const FurnitureKeyword = async ({params}) => {
     const { keyword } = params
     const decodeKeyword = decodeURI(keyword)
-    const res = await axios.get(`http://localhost:3000/api/v1/categories/${decodeKeyword}`)
+    const res = await axios.get(`https://furnicraft-nine.vercel.app/api/v1/categories/${decodeKeyword}`)
     const resultFurnitureKeyword = res.data.data || []
     const countResult = resultFurnitureKeyword.length
     return (
