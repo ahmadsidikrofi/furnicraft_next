@@ -26,7 +26,7 @@ export default async function RootLayout({ children }) {
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
       </head>
       <body className={poppins.className}>
-        {/* <NavbarWrapper authUser={authUser} countCart={countCart}/> */}
+        <NavbarWrapper authUser={authUser} countCart={countCart}/>
         {children}
         {/* <Footer /> */}
       </body>

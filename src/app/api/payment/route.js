@@ -1,4 +1,5 @@
 import { authUserGithub } from "@/libs/auth"
+import prisma from "@/libs/prisma"
 import Midtrans from "midtrans-client"
 import { nanoid } from "nanoid"
 
