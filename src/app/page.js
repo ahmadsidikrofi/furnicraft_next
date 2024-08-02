@@ -8,8 +8,8 @@ export default function Home() {
     <main className="">
       <Jumbotron />
       <section className='xl:px-16 sm:px-4 max-sm:px-4'>
-          <FtCategories />
-          <PopulerFurniture />
+          {/* <FtCategories />
+          <PopulerFurniture /> */}
       </section>
     </main>
   );
