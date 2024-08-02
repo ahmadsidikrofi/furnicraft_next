@@ -15,6 +15,9 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const authUser = await authUserGithub()
+  const countCart = await prisma.cart.findMany({ 
+    where: { user_email: authUser?.email }
+  })
   return (
     <html lang="en">
       <head>
@@ -23,7 +26,7 @@ export default async function RootLayout({ children }) {
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
       </head>
       <body className={poppins.className}>
-        <NavbarWrapper authUser={authUser}/>
+        <NavbarWrapper authUser={authUser} countCart={countCart}/>
         {children}
         {/* <Footer /> */}
       </body>

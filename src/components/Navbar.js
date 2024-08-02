@@ -1,4 +1,4 @@
-    'use client'
+'use client'
 import { List, MagnifyingGlass, ShoppingCartSimple, UserCircle } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -18,24 +18,16 @@ import {
     NavigationMenuViewport,
   } from "@/components/ui/navigation-menu"
 import AuthButton from "./AuthButton";
+import Image from "next/image";
 
-const Navbar = ({authUser}) => {
-    const [cartCount, setCartCount] = useState(0)
+const Navbar = ({authUser, countCart}) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
-    const keywordCategoriesRef = useRef()
     const router = useRouter()
 
     const clickToCart = () => {
         authUser ? router.push('/cart') : router.push('/sign-in')
     }
-
-    // const handleCountCart = async () => {
-    //     const res = await axios.get('/api/v1/cart')
-    //     setCartCount(res.data.countCart)
-    // }
-    // handleCountCart()
-
     const miniMenuNavbar = () => {
         setIsSidebarOpen(true)
         document.body.classList.add('overflow-hidden');
@@ -44,7 +36,6 @@ const Navbar = ({authUser}) => {
         setIsSearchOpen((prevState) => !prevState)
         document.body.classList.add('overflow-hidden')
     }
-
     const handleKeywordCategories = (key) => {
         router.push(`/categories/${key}`)
     }
@@ -63,18 +54,21 @@ const Navbar = ({authUser}) => {
                 <button onClick={miniMenuNavbar} className="p-[6px] visible lg:hidden xl:hidden hover:bg-color-accent hover:bg-opacity-10 hover:rounded-full transition-all ease-in-out">
                     <List size={24} />
                 </button>
-                <Link href={'/'} className="text-emerald-600 text-md font-bold hidden lg:block xl:block">FurniCraft</Link>
+                <Link href={'/'} className="text-emerald-600 text-lg font-bold hidden lg:flex items-center gap-2 mx-2">
+                    <Image className="w-[30px] h-[30px]" width={768} height={768} src="/icon.png" alt="Furnicraft Logo" />
+                    <p>FurniCraft</p>
+                </Link>
                 <div className="hidden lg:flex lg:items-center xl:flex xl:items-center">
                     <NavigationMenu>
                         <NavigationMenuList>
                             <NavigationMenuItem>
-                                <NavigationMenuTrigger>Lobby tes</NavigationMenuTrigger>
+                                <NavigationMenuTrigger>Lobby</NavigationMenuTrigger>
                                 <NavigationMenuContent>
                                     <ul className='grid gap-3 p-6 md:w-[400px] lg:w-[500px] lg:grid-cols-[.75fr_1fr]'>
                                         <li className='row-span-3'>
                                             <NavigationMenuLink asChild>
                                                 <Link className='flex h-full w-full select-none flex-col justify-end rounded-md bg-gradient-to-b from-muted/50 to-muted p-6 no-underline outline-none focus:shadow-md' href='/'>
-                                                    {/* <Icons.logo className='h-6 w-6' /> */}
+                                                    <Image className="w-[50px] h-[50px]" width={768} height={768} src="/icon.png" alt="Furnicraft Logo"  />
                                                     <div className='mb-2 mt-4 text-lg font-medium'>Furnicraft</div>
                                                     <p className='text-sm leading-tight text-muted-foreground'>Discover cutting-edge furniture shopping, powered by Next.js technology. Shop smarter, live better!</p>
                                                 </Link>
@@ -125,7 +119,7 @@ const Navbar = ({authUser}) => {
                     </div>
                     <button onClick={clickToCart} className="relative flex gap-1 items-center h-10  py-2 px-3 border-[1px] shadow border-color-accent border-opacity-15 rounded-full hover:bg-color-grey hover:bg-opacity-5">
                         <ShoppingCartSimple size={17} />
-                        <p className="font-medium text-sm">{cartCount ? cartCount : 0}</p>
+                        <p className="font-medium text-sm">{countCart.length}</p>
                     </button>
 
                     <AuthButton authUser={authUser}/>

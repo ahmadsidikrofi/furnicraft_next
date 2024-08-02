@@ -6,7 +6,10 @@ import { authUserGithub } from "@/libs/auth";
 const PopulerFurniture = async () => {
     const furnitures = await prisma?.furnitures.findMany()
     const authUser = await authUserGithub()
-    const email = authUser?.email
+    // const email = authUser?.email
+    const cartData = await prisma?.cart.findMany({
+        where: { user_email: authUser?.email }
+    })
     return (
         <main className="mt-24">
             <HeaderSection 
@@ -15,7 +18,7 @@ const PopulerFurniture = async () => {
                 linkContent="Shop the furnitures"
                 linkHeader="/furnitures"
             />
-            <FurnituresCard furnitures={furnitures} email={email}/>
+            <FurnituresCard furnitures={furnitures} authUser={authUser} cartData={cartData}/>
         </main> 
     );
 }

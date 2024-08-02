@@ -3,7 +3,7 @@
 import { usePathname, useRouter } from 'next/navigation'
 import Navbar from './Navbar';
 
-const NavbarWrapper = ({ authUser }) => {
+const NavbarWrapper = ({ authUser, countCart }) => {
   const pathname = usePathname()
   const router = useRouter()
   const isInvoiceRoute = /^\/invoice\/[a-zA-Z0-9-]+$/.test(pathname)
@@ -13,7 +13,7 @@ const NavbarWrapper = ({ authUser }) => {
     router.push("/sign-in");
     return null;
   }
-  return !isExcludedRoute ? <Navbar authUser={authUser}/> : null;
+  return !isExcludedRoute ? <Navbar authUser={authUser} countCart={countCart}/> : null;
 };
 
 export default NavbarWrapper;

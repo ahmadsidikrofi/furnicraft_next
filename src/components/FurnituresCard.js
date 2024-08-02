@@ -7,7 +7,7 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import toast, { Toaster } from 'react-hot-toast';
 import FurnitureSkeleton from "./skeleton/FurnitureSkeleton"
-const FurnituresCard = ({ furnitures, email }) => {
+const FurnituresCard = ({ furnitures, authUser, cartData }) => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(true)
     const [cartItems, setCartItems] = useState([])
@@ -33,23 +33,29 @@ const FurnituresCard = ({ furnitures, email }) => {
                 image: furniture.image,
                 id_furniture: furniture.id,
                 slug: furniture.slug,
-                user_email: email,
+                user_email: authUser?.email,
             };
             const isCartItemStored = [...cartItems, data]
             setCartItems(isCartItemStored)
             localStorage.setItem('cartItems', JSON.stringify(isCartItemStored))
-            const res = await axios.post('/api/v1/cart', data)
-            if (res.data.status === 200) {
-                toast.loading("Tunggu...", { duration: 1000 })
-                setTimeout(() => {
-                    toast.success("Furniture berhasil masuk keranjang")
-                    router.refresh()
-                }, 1000)
-            } else {
-                toast.error("Gagal masuk ke keranjang 😅")
-                console.error("Gagal menambahkan item ke keranjang");
+            try {
+                const res = await axios.post('/api/v1/cart', data)
+                if (res.data.status === 200) {
+                    toast.loading("Tunggu...", { duration: 1000 })
+                    setTimeout(() => {
+                        toast.success("Furniture berhasil masuk keranjang")
+                        router.refresh()
+                    }, 1000)
+                } else {
+                    toast.error("Gagal masuk ke keranjang 😅")
+                    console.error("Gagal menambahkan item ke keranjang");
+                }
+            } catch {
+                toast.success("Furniture sudah tersedia dalam keranjang")
             }
         }
+        // if (!authUser) {        
+        // }
     };
     return (
         <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 my-12">

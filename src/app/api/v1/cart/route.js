@@ -15,15 +15,6 @@ export async function POST( request ) {
     else return Response.json({ status: 200, isCreated: true })
 }
 
-export async function GET() {
-    const userAuth = await authUserGithub()
-    const countCart = await prisma.cart.count({
-        where: { user_email: userAuth?.email }
-    })
-    if (!countCart) return Response.json({ status: 401 })
-    else return Response.json({ status: 200, countCart })
-}
-
 export async function DELETE () {
     const authUser = await authUserGithub()
     const deleteAllCart = await prisma?.cart.deleteMany({
