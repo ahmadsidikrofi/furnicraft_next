@@ -24,21 +24,25 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
         const isFurnitureExists = cartItems.some((item) => item.slug === furniture.slug)
         if (isFurnitureExists) {
             toast.success("Furniture sudah tersedia dalam keranjang")
-        } else {
-            const data = {
-                furniture_id: furniture.id,
-                nama_furniture: furniture.nama_furniture,
-                harga: furniture.harga,
-                categories: furniture.categories,
-                image: furniture.image,
-                id_furniture: furniture.id,
-                slug: furniture.slug,
-                user_email: authUser?.email,
-            };
-            const isCartItemStored = [...cartItems, data]
-            setCartItems(isCartItemStored)
-            localStorage.setItem('cartItems', JSON.stringify(isCartItemStored))
+            return
+        }
+        const data = {
+            furniture_id: furniture.id,
+            nama_furniture: furniture.nama_furniture,
+            harga: furniture.harga,
+            categories: furniture.categories,
+            image: furniture.image,
+            id_furniture: furniture.id,
+            slug: furniture.slug,
+            user_email: authUser?.email,
+        }
+        const updatedCartItems = [...cartItems, data]
+        setCartItems(updatedCartItems)
+        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+        
+        if (authUser) {
             try {
+                // Jika user login, tambahkan ke database
                 const res = await axios.post('/api/v1/cart', data)
                 if (res.data.status === 200) {
                     toast.loading("Tunggu...", { duration: 1000 })
@@ -48,15 +52,18 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
                     }, 1000)
                 } else {
                     toast.error("Gagal masuk ke keranjang 😅")
-                    console.error("Gagal menambahkan item ke keranjang");
+                    console.error("Gagal menambahkan furniture ke keranjang");
                 }
-            } catch {
-                toast.success("Furniture sudah tersedia dalam keranjang")
+            } catch (error) {
+                console.error("Gagal menambahkan furnitur ke keranjang", error);
+                toast.success("Furniture sudah tersedia dalam keranjang");
             }
+        } else {
+            // Jika user tidak login, hanya tampilkan pesan sukses
+            toast.success("Furniture berhasil masuk keranjang")
         }
-        // if (!authUser) {        
-        // }
-    };
+    }
+
     return (
         <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 my-12">
             <Toaster />

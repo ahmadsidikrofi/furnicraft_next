@@ -1,9 +1,8 @@
 'use client'
-import { List, MagnifyingGlass, ShoppingCartSimple, UserCircle } from "@phosphor-icons/react";
+import { List, MagnifyingGlass, ShoppingCartSimple } from "@phosphor-icons/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
-import axios from "axios";
+import { useEffect, useState } from "react";
 import SidebarMenu from "../components/Sidebar"
 import SearchFurnitems from "./SearchFurnitems";
 import { ListItem } from "@/components/ui/ListItem"
@@ -24,6 +23,7 @@ const Navbar = ({authUser, countCart}) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
     const router = useRouter()
+    const count = 0
 
     const clickToCart = () => {
         authUser ? router.push('/cart') : router.push('/sign-in')
@@ -119,7 +119,7 @@ const Navbar = ({authUser, countCart}) => {
                     </div>
                     <button onClick={clickToCart} className="relative flex gap-1 items-center h-10  py-2 px-3 border-[1px] shadow border-color-accent border-opacity-15 rounded-full hover:bg-color-grey hover:bg-opacity-5">
                         <ShoppingCartSimple size={17} />
-                        {/* <p className="font-medium text-sm">{countCart.length}</p> */}
+                        <p className="font-medium text-sm">{authUser ? countCart.length : count+1}</p>
                     </button>
 
                     <AuthButton authUser={authUser}/>
