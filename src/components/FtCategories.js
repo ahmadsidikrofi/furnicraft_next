@@ -1,6 +1,7 @@
 import CategoriesCard from "./CategoriesCard"
 import HeaderSection from "./HeaderSection"
 import prisma from "@/libs/prisma"
+import HomeTour from "./drivers/HomeTour"
 
 
 const FtCategories = async() => {
@@ -14,7 +15,8 @@ const FtCategories = async() => {
         }
     })
     return (
-        <div className="">
+        <div className="ftCategories">
+            <HomeTour />
             <HeaderSection 
                 titleHeader="Featured Categories" 
                 descHeader="Find the best Interiors gears from stores in" 

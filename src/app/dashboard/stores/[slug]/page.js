@@ -37,14 +37,14 @@ const StoreDashboardPage = async ({ params }) => {
                         <TabsTrigger value="products">Products</TabsTrigger>
                         <TabsTrigger value="settings">Settings</TabsTrigger>
                     </TabsList>
-                    <Separator className="my-3 w-[80vw] lg:w-[73vw] max-sm:w-[80vw] md:none" />
-                    <TabsContent value="products" className="lg:w-[70vw] md:w-[90vw] sm:w-[90vw] max-sm:w-[85vw]">
+                    <Separator className="my-3 w-[80vw] md:w-[72vw] max-sm:w-[84vw]" />
+                    <TabsContent value="products" className="lg:w-[70vw] md:w-[90vw] sm:w-[90vw] max-sm:w-[90vw]">
                         <div className="">
                             <SearchFurnitureDashboard initialFurnitures={initialFurnitures} detailData={detailData}/>
                         </div>
                     </TabsContent>
 
-                    <TabsContent value="settings" className="lg:w-[70vw] md:w-[90vw] sm:w-[90vw] max-sm:w-[85vw] border rounded-xl p-5">
+                    <TabsContent value="settings" className="lg:w-[70vw] md:w-[90vw] sm:w-[90vw] max-sm:w-[93vw] border rounded-xl p-5">
                         <h2 className="text-color-accent2 font-bold text-xl my-3">Set up your Store</h2>
                         <p className="text-muted-foreground">
                             Edit or set your store as you want

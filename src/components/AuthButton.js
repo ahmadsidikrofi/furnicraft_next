@@ -12,13 +12,14 @@ import {
   } from "@/components/ui/dropdown-menu"
 import Image from "next/image"
 import { DashboardIcon } from "@radix-ui/react-icons"
+import HomeTour from "./drivers/HomeTour"
   
-
 const AuthButton = ({ authUser }) => {
     const NotSignedButton = () => {
         return (
             <>
-                <Link href="/sign-in" className={`relative flex items-center shadow-md rounded-full bg-color-accent2`}>
+                {authUser ? null : <HomeTour />}
+                <Link href="/sign-in" className={`signin relative flex items-center shadow-md rounded-full bg-color-accent2`}>
                     <Button className="text-color-primary" variant="none">Sign in</Button>
                 </Link>
             </>

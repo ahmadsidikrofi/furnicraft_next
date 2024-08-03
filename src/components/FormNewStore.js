@@ -56,7 +56,7 @@ const FormNewStore = ({ email }) => {
             <div>
                 <Toaster />
                 <Form {...form}>
-                    <div className="flex items-center gap-3">
+                    <div className="flex max-sm:flex-col items-center gap-3">
                         <FormField
                             control={form.control}
                             name="nama_toko"

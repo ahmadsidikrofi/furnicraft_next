@@ -7,6 +7,7 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import toast, { Toaster } from 'react-hot-toast';
 import FurnitureSkeleton from "./skeleton/FurnitureSkeleton"
+import HomeTour from "./drivers/HomeTour"
 const FurnituresCard = ({ furnitures, authUser, cartData }) => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(true)
@@ -66,6 +67,7 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 my-12">
+            <HomeTour />
             <Toaster />
             {furnitures?.map((furniture) => (
                 <div key={furniture.id}>
@@ -86,7 +88,7 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
                                     <div className="flex justify-between items-center">
                                         <p className="font-semibold text-lg text-color-accent2">Rp {furniture.harga.toLocaleString("id-ID", {minimumFractionDigits: 2})}</p>
                                         <button onClick={(e) => addToCart(furniture, e)} >
-                                            <ShoppingCart size={36} className="p-2 border-[1px] bg-color-thin border-color-accent text-color-accent2 rounded-full hover:scale-[1.15] transition-all ease-linear hover:shadow-lg hover:bg-color-accent2 hover:text-color-primary" />
+                                            <ShoppingCart size={36} className="cart-now p-2 border-[1px] bg-color-thin border-color-accent text-color-accent2 rounded-full hover:scale-[1.15] transition-all ease-linear hover:shadow-lg hover:bg-color-accent2 hover:text-color-primary" />
                                         </button>
                                     </div>
                                 </div>

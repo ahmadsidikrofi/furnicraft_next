@@ -87,8 +87,8 @@ const SearchFurnitureDashboard = ({ initialFurnitures, detailData }) => {
             <div className="border my-6 rounded-lg">
                 <Table>
                     <TableHeader>
-                        <TableRow>
-                            <TableHead className="p-4 w-64">Nama furnitur</TableHead>
+                        <TableRow className="max-sm:text-[12px]">
+                            <TableHead className="p-4 w-72 max-sm:text-nowrap">Nama furnitur</TableHead>
                             <TableHead>Kategori</TableHead>
                             <TableHead>Harga</TableHead>
                             <TableHead>Ditambahkan pada</TableHead>
@@ -102,7 +102,7 @@ const SearchFurnitureDashboard = ({ initialFurnitures, detailData }) => {
                             </TableRow>
                             :
                             fetchFurnitures.map((furniture, i) => (
-                                <TableRow key={i} className="text-left">
+                                <TableRow key={i} className="text-left max-sm:text-[12px]">
                                     <TableCell className="p-5 w-64">{furniture.nama_furniture}</TableCell>
                                     <TableCell>{furniture.categories}</TableCell>
                                     <TableCell>Rp {furniture.harga.toLocaleString("id-ID", { minimumFractionDigits: 2 })}</TableCell>

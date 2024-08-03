@@ -18,6 +18,7 @@ import {
   } from "@/components/ui/navigation-menu"
 import AuthButton from "./AuthButton";
 import Image from "next/image";
+import HomeTour from "./drivers/HomeTour";
 
 const Navbar = ({authUser, countCart}) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
@@ -41,7 +42,8 @@ const Navbar = ({authUser, countCart}) => {
     }
 
     return ( 
-        <>
+        <> 
+            {authUser ? null : <HomeTour />}
             {isSidebarOpen ?
                 <SidebarMenu setIsSidebarOpen={setIsSidebarOpen} />
                 :
@@ -109,15 +111,15 @@ const Navbar = ({authUser, countCart}) => {
                     </NavigationMenu>
                 </div>
 
-                <div className="flex gap-3 ml-auto items-center ">
-                    <button onClick={handleOpenSearch} className="visible lg:hidden h-10 py-1 px-3 border-[1px] shadow border-color-accent border-opacity-15 rounded-full hover:bg-color-grey hover:bg-opacity-5">
+                <div className="flex gap-3 ml-auto items-center">
+                    <button onClick={handleOpenSearch} className="search-furniture visible lg:hidden h-10 py-1 px-3 border-[1px] shadow border-color-accent border-opacity-15 rounded-full hover:bg-color-grey hover:bg-opacity-5">
                         <MagnifyingGlass size={20}  className="font-medium"/>
                     </button>
                     <div onClick={handleOpenSearch} className={`cursor-pointer relative hidden h-10 xl:flex xl:items-center lg:flex lg:items-center py-2 px-4 border-[1px] shadow border-color-accent border-opacity-15 hover:bg-color-grey hover:bg-opacity-5 rounded-full transition-all ease-linear 2s`}>
-                        <MagnifyingGlass size={17}  className="absolute left-2 font-medium"/>
-                        <p className="font-medium pl-4 text-sm">Cari Furnitems... <span className="rounded-full bg-sky-100 text-[10px] py-1 px-2 font-bold">Ctrl K</span> </p>
+                        <MagnifyingGlass size={17}  className="absolute left-2 font-medium search-furniture"/>
+                        <p className="font-medium pl-4 text-sm search-furniture">Cari Furnitems... <span className="rounded-full bg-sky-100 text-[10px] py-1 px-2 font-bold">Ctrl K</span> </p>
                     </div>
-                    <button onClick={clickToCart} className="relative flex gap-1 items-center h-10  py-1 px-3 border-[1px] shadow border-color-accent border-opacity-15 rounded-full hover:bg-color-grey hover:bg-opacity-5">
+                    <button onClick={clickToCart} className="cart-driver relative flex gap-1 items-center h-10  py-1 px-3 border-[1px] shadow border-color-accent border-opacity-15 rounded-full hover:bg-color-grey hover:bg-opacity-5">
                         <ShoppingCartSimple size={17} />
                         <p className="font-medium text-sm">{authUser ? countCart.length : count+1}</p>
                     </button>

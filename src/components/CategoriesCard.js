@@ -5,6 +5,7 @@ import { useState } from "react";
 import LoadingSkeleton from "./skeleton/CategorySkeleton";
 import { Armchair } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
+import HomeTour from "./drivers/HomeTour";
 
 const CategoriesCard = ({ categories }) => {
     const [isLoading, setIsLoading] = useState(true)
@@ -13,7 +14,8 @@ const CategoriesCard = ({ categories }) => {
         router.push(`/categories/${key}`)
     }
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 w-full my-12">
+        <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 w-full my-12 product-categories">
+            <HomeTour />
             {categories?.map((category, index) => (
                 <div  key={index}>
                     {isLoading ? <LoadingSkeleton setIsLoading={setIsLoading}/> :     

@@ -84,7 +84,7 @@ const FormSettingStore = ({ email, detailData }) => {
             <div>
                 <Toaster />
                 <Form {...form}>
-                    <div className="flex items-center gap-3">
+                    <div className="flex max-sm:flex-col items-center gap-3">
                         <FormField
                             control={form.control}
                             name="nama_toko"
@@ -139,7 +139,7 @@ const FormSettingStore = ({ email, detailData }) => {
                             {isLoading ? <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> : null} Update Store
                         </Button>
                         <AlertDialog>
-                            <AlertDialogTrigger>
+                            <AlertDialogTrigger asChild>
                                 <Button disabled={isLoading ? true : false} className="rounded-full w-full p-3 text-color-primary bg-red-500">
                                     {isLoading ? <ReloadIcon className="mr-2 h-4 w-4 animate-spin" /> : null} Delete Store
                                 </Button>

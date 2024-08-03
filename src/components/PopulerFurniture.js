@@ -2,6 +2,7 @@ import prisma from "@/libs/prisma";
 import FurnituresCard from "./FurnituresCard";
 import HeaderSection from "./HeaderSection";
 import { authUserGithub } from "@/libs/auth";
+import HomeTour from "./drivers/HomeTour";
 
 const PopulerFurniture = async () => {
     const furnitures = await prisma?.furnitures.findMany()
@@ -11,7 +12,8 @@ const PopulerFurniture = async () => {
         where: { user_email: authUser?.email }
     })
     return (
-        <main className="mt-24">
+        <main className="mt-24 populer-furnitures">
+            <HomeTour />
             <HeaderSection 
                 titleHeader="Populer Furniture"
                 descHeader="Explore all interior furniture we offer from"
