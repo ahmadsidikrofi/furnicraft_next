@@ -67,7 +67,7 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 my-12">
-            <HomeTour />
+            {/* {authUser === false && <HomeTour />} */}
             <Toaster />
             {furnitures?.map((furniture) => (
                 <div key={furniture.id}>

@@ -6,6 +6,7 @@ import JumbotronCarousel from "./JumbotronCarousel"
 import HomeTour from "./drivers/HomeTour"
 
 const Jumbotron = ({ authUser }) => {
+    // const checkTour = localStorage.getItem("")
     return (
         <div>
             {authUser === true ? null : <HomeTour />}

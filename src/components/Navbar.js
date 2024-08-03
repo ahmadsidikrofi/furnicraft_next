@@ -43,7 +43,7 @@ const Navbar = ({authUser, countCart}) => {
 
     return ( 
         <> 
-            {authUser ? null : <HomeTour />}
+            {/* {authUser === false && <HomeTour />} */}
             {isSidebarOpen ?
                 <SidebarMenu setIsSidebarOpen={setIsSidebarOpen} />
                 :

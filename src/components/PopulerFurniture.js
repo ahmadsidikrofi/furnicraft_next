@@ -13,7 +13,7 @@ const PopulerFurniture = async () => {
     })
     return (
         <main className="mt-24 populer-furnitures">
-            <HomeTour />
+            {/* {authUser === false && <HomeTour />} */}
             <HeaderSection 
                 titleHeader="Populer Furniture"
                 descHeader="Explore all interior furniture we offer from"

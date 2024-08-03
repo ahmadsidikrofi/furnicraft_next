@@ -4,10 +4,7 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { Card, CardContent, CardFooter, CardHeader } from '@/components/ui/Card'
 import { AspectRatio } from "../ui/aspect-ratio"
 
-const FurnitureSkeleton = ({ setIsLoading }) => {
-    useEffect(() => {
-        setIsLoading(false)
-    }, [setIsLoading])
+const FurnitureSkeleton = () => {
     return (
         <Card className='h-full overflow-hidden rounded-2xl'>
             <CardHeader className='p-0'>

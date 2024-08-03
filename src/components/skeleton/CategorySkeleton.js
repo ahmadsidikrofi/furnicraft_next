@@ -3,10 +3,7 @@ import { useEffect, useState } from "react"
 import { Skeleton } from "@/components/ui/skeleton"
 import { AspectRatio } from "../ui/aspect-ratio"
 
-const CategorySkeleton = ({setIsLoading}) => {
-    useEffect(() => {
-        setIsLoading(false)
-    }, [setIsLoading])
+const CategorySkeleton = () => {
     return ( 
         <div>
             <AspectRatio ratio={2 / 1}>

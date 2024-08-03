@@ -18,7 +18,7 @@ const AuthButton = ({ authUser }) => {
     const NotSignedButton = () => {
         return (
             <>
-                {authUser ? null : <HomeTour />}
+                {/* {authUser === false && <HomeTour />} */}
                 <Link href="/sign-in" className={`signin relative flex items-center shadow-md rounded-full bg-color-accent2`}>
                     <Button className="text-color-primary" variant="none">Sign in</Button>
                 </Link>
