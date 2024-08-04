@@ -40,6 +40,18 @@ const Navbar = ({authUser, countCart}) => {
     const handleKeywordCategories = (key) => {
         router.push(`/categories/${key}`)
     }
+    useEffect(() => {
+        const handleKeyDown = (e) => {
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault(); // Mencegah perilaku default
+                handleOpenSearch(); // Panggil fungsi untuk membuka pencarian
+            }
+        };
+        window.addEventListener('keydown', handleKeyDown)
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown)
+        }
+    }, [])
 
     return ( 
         <> 

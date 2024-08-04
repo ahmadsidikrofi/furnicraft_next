@@ -52,7 +52,7 @@ const SearchFurnitems = ({ setIsSearchOpen }) => {
         <div className="fixed inset-0 z-20 bg-color-primary bg-opacity-50 backdrop-blur-sm" onClick={handleCloseSearchbar}></div>
         <div className="sticky z-20">
             <div className="fixed top-48 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                <Command className="rounded-lg border shadow-md w-[85vh] max-sm:w-full">
+                <Command className="rounded-lg border shadow-md md:w-[85vh] max-sm:w-[40vh] sm:w-[40vh]">
                     <CommandInput onValueChange={(value) => setSearchValue(value)} placeholder="Cari furniturmu" />
                     <CommandList>
                         {Object.keys(groupedResults).length > 0 ? (

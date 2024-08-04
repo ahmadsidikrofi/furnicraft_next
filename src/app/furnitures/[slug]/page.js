@@ -35,7 +35,7 @@ const detailFurniturePage = async ({ params }) => {
                         <WAButton waLink={waLink} detailData={detailData}/>
                         <h3 className="font-semibold text-color-accent2 text-4xl">{detailData.nama_furniture}</h3>
                         <h5 className="font-medium text-color-secondary text-2xl">Rp {detailData.harga.toLocaleString("id-ID", { minimumFractionDigits: 2 })}</h5>
-                        <p className="text-color-grey text-lg font-light">{detailData.categories}</p>
+                        <p className="text-color-grey text-lg font-normal">{detailData.Store.nama_toko}</p>
                         <hr className="w-full opacity-15 border-color-grey" />
                         <p className="font-medium text-color-secondary text-lg">Deskripsi furniture : </p>
                         <p>{detailData.deskripsi}</p>
