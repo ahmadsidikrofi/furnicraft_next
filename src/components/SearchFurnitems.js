@@ -1,10 +1,22 @@
 'use client'
 import { MagnifyingGlass, XCircle } from "@phosphor-icons/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { motion } from "framer-motion"
+import axios from "axios"
 
 const SearchFurnitems = ({ setIsSearchOpen }) => {
     const [closeSearchbar, setCloseSearchbar] = useState(false)
+    const [searchValue, setSearchValue] = useState('')
+    const [searchResult, setSearchResult] = useState([])
+    useEffect(() => {
+        if (searchValue.trim()) {
+            axios.get(`/api/v1/search?query=${searchValue}`)
+            .then((res) => {
+                setSearchResult(res.data.resultData)
+            })
+        }
+    }, [searchValue])
+
     const handleCloseSearchbar = () => {
         setCloseSearchbar(true)
         setIsSearchOpen(false)
@@ -22,10 +34,17 @@ const SearchFurnitems = ({ setIsSearchOpen }) => {
                 >
                     <div className="flex items-center gap-2">
                         <MagnifyingGlass size={23}  className="font-medium"/>
-                        <input className="bg-color-accent2 placeholder-color-primary outline-none" type="text" placeholder="Cari / Search Furnitems..." />
+                        <input value={searchValue} onChange={(e) => setSearchValue(e.target.value)} className="bg-color-accent2 placeholder-color-primary outline-none w-[60vh]" type="text" placeholder="Cari / Search Furnitems..." />
                     </div>
                     <button onClick={handleCloseSearchbar}><XCircle size={28} /></button>
                 </motion.div>
+                <div>
+                    {searchResult?.map((result, i) => (
+                        <div key={i}>
+                            {result.nama_furniture}
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
         </>
