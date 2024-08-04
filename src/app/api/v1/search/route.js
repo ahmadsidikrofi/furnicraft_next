@@ -11,6 +11,6 @@ export async function GET(request) {
             }
         }
     })
-    if (!resultData) return Response.json({ status: 404 })
+    if (!resultData) return Response.json({ status: 404, message: "Furniture tidak ditemukan" })
     else return Response.json({ status: 200, resultData }) 
 }

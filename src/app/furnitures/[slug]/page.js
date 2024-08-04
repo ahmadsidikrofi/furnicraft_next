@@ -21,7 +21,7 @@ const detailFurniturePage = async ({ params }) => {
     const authUser = await authUserGithub()
     const email = authUser?.email
     const telp = "62" + detailData.Store.telp
-    const chat = `Halo, saya tertarik dengan furnitur ${detailData.nama_furniture} yang dijual seharga Rp${detailData.harga.toLocaleString('id-ID')} dengan link http://localhost:3000/furnitures/${detailData.slug}` 
+    const chat = `Halo, saya tertarik dengan furnitur ${detailData.nama_furniture} yang dijual seharga Rp${detailData.harga.toLocaleString('id-ID')} dengan link https://furnicraft-nine.vercel.app/furnitures/${detailData.slug}` 
     const waLink = `https://wa.me/${telp}?text=${chat}`
 
     return (
