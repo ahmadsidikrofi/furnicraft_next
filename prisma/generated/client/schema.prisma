@@ -36,7 +36,7 @@ model cart {
   id_furniture   Int
   user_email     String? @db.VarChar(255)
   nama_furniture String  @db.VarChar(255)
-  slug           String  @unique
+  slug           String
   harga          Float
   categories     String  @db.VarChar(155)
   image          String? @db.Text

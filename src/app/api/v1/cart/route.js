@@ -23,3 +23,14 @@ export async function DELETE () {
     if (!deleteAllCart) return Response.json({ status: 500, isDelete: false })
     else return Response.json({ status: 200, isDelete: true })
 }
+
+export async function GET (request) {
+    const { searchParams } = new URL(request.url);
+    const slug = searchParams.get('slug')
+    const user_email = searchParams.get('user_email')
+    const isFurnitureExists = await prisma.cart.findUnique({
+        where: { slug: slug, user_email: user_email }
+    })
+    if (isFurnitureExists) return Response.json({ status: 200, exists: true })
+    else return Response.json({ status: 200, exists: false })
+}

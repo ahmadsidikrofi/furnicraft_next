@@ -7,7 +7,7 @@ import axios from "axios"
 import { useRouter } from "next/navigation"
 import toast, { Toaster } from 'react-hot-toast';
 import FurnitureSkeleton from "./skeleton/FurnitureSkeleton"
-import HomeTour from "./drivers/HomeTour"
+
 const FurnituresCard = ({ furnitures, authUser, cartData }) => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(true)
@@ -22,10 +22,18 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
 
     const addToCart = async (furniture, e) => {
         e.preventDefault()
-        const isFurnitureExists = cartItems.some((item) => item.slug === furniture.slug)
-        if (isFurnitureExists) {
-            toast.success("Furniture sudah tersedia dalam keranjang")
-            return
+        const isLocalFurnitureExists = cartItems.some((item) => item.slug === furniture.slug)
+        if (!authUser) {
+            if (isLocalFurnitureExists) {
+                toast.success("Furniture sudah tersedia dalam keranjang")
+                return
+            }
+        } else {
+            const res = await axios.get(`/api/v1/cart?slug=${furniture.slug}&user_email=${authUser?.email}`)
+            if (res.data.exists) {
+                toast.success("Furniture sudah tersedia dalam keranjang")
+                return
+            }
         }
         const data = {
             furniture_id: furniture.id,
@@ -40,6 +48,7 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
         const updatedCartItems = [...cartItems, data]
         setCartItems(updatedCartItems)
         localStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
+        window.dispatchEvent(new Event('cartItemsUpdated'))
         
         if (authUser) {
             try {
@@ -62,13 +71,11 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
         } else {
             // Jika user tidak login, hanya tampilkan pesan sukses
             toast.success("Furniture berhasil masuk keranjang")
-            router.refresh()
         }
     }
 
     return (
         <div className="grid grid-cols-1 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 gap-4 my-12">
-            {/* {authUser === false && <HomeTour />} */}
             <Toaster />
             {furnitures?.map((furniture) => (
                 <div key={furniture.id}>
