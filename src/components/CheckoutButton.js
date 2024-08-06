@@ -1,5 +1,4 @@
 'use client'
-
 import axios from "axios"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
@@ -25,7 +24,7 @@ const CheckoutButton = ({ ids, harga, cartUsers, nama_furniture }) => {
         }
     }, [])
      
-    const handleCheckout = async() => {
+    const handleCheckout = async () => {
         const data = {
             ids: ids,
             name: nama_furniture,
@@ -60,6 +59,9 @@ const CheckoutButton = ({ ids, harga, cartUsers, nama_furniture }) => {
                     localStorage.removeItem('cartItems')
                 }
             }, 5000)
+        }).catch (err => {
+            console.error('user not signed')
+            router.push('/sign-in')
         })
     }
     return (

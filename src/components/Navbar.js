@@ -23,11 +23,12 @@ import HomeTour from "./drivers/HomeTour";
 const Navbar = ({authUser, countCart}) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false)
     const [isSearchOpen, setIsSearchOpen] = useState(false)
+    const [countCartLocal, setCountCartLocal] = useState(0)
     const router = useRouter()
-    const count = 0
 
     const clickToCart = () => {
-        authUser ? router.push('/cart') : router.push('/sign-in')
+        // authUser ? router.push('/cart') : router.push('/sign-in')
+        router.push('/cart')
     }
     const miniMenuNavbar = () => {
         setIsSidebarOpen(true)
@@ -52,10 +53,23 @@ const Navbar = ({authUser, countCart}) => {
             window.removeEventListener('keydown', handleKeyDown)
         }
     }, [])
+    useEffect(() => {
+        const updateCartCount = () => {
+            const cartItems = JSON.parse(localStorage.getItem("cartItems")) || []
+            setCountCartLocal(cartItems.length)
+        }
+        updateCartCount()
+        const handleStorageChange = () => {
+            updateCartCount();
+        }
+        window.addEventListener('storage', handleStorageChange)
+        return () => {
+            window.removeEventListener('storage', handleStorageChange)
+        }
+    }, [])
 
     return ( 
         <> 
-            {/* {authUser === false && <HomeTour />} */}
             {isSidebarOpen ?
                 <SidebarMenu setIsSidebarOpen={setIsSidebarOpen} />
                 :
@@ -133,7 +147,7 @@ const Navbar = ({authUser, countCart}) => {
                     </div>
                     <button onClick={clickToCart} className="cart-driver relative flex gap-1 items-center h-10  py-1 px-3 border-[1px] shadow border-color-accent border-opacity-15 rounded-full hover:bg-color-grey hover:bg-opacity-5">
                         <ShoppingCartSimple size={17} />
-                        <p className="font-medium text-sm">{authUser ? countCart.length : count+1}</p>
+                        <p className="font-medium text-sm">{countCart}</p>
                     </button>
 
                     <AuthButton authUser={authUser}/>

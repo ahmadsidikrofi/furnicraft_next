@@ -15,9 +15,7 @@ export const metadata = {
 
 export default async function RootLayout({ children }) {
   const authUser = await authUserGithub()
-  const countCart = await prisma.cart.findMany({ 
-    where: { user_email: authUser?.email }
-  })
+  const countCart = await prisma.cart.count()
   return (
     <html lang="en">
       <head>

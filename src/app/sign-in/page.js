@@ -60,7 +60,7 @@ const Signin = () => {
                     </div>
                 </div>
                 <div className="lg:p-8">
-                    <div className="mx-auto w-full justify-center border rounded-lg p-10 space-y-6 sm:w-[500px] md:w-[600px] max-md:w-[400px] lg:w-[500px]">
+                    <div className="mx-auto w-full justify-center border rounded-lg p-10 space-y-6 sm:w-[500px] md:w-[100%] max-md:w-[100%] lg:w-[500px]">
                         <div className="flex flex-col space-y-2 text-center">
                             <h1 className="text-2xl font-semibold tracking-tight">
                                 Sign in

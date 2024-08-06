@@ -19,7 +19,10 @@ export async function POST (request) {
             }
         }
     })
-    const orderId = `TRX-${nanoid(4)}-${nanoid(8)}`
+    const prefix = 'FURN'
+    const dateOrder = new Date().toISOString().slice(0, 10).replace(/-/g, '')
+    const uniqueId = nanoid(10)
+    const orderId = `${prefix}-${dateOrder}-${nanoid(3)}-${uniqueId}`
     const itemDetails = furnitureItem.map((furniture) => ({
         id: furniture.id.toString(),
         name: furniture.nama_furniture,
