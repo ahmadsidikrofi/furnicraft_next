@@ -61,7 +61,7 @@ const CartPage = async () => {
                         <hr className="w-full opacity-15 border-color-grey" />
                         <div className="flex justify-between mt-4">
                             <p className="font-medium">Order total</p>
-                            <p className="font-normal">Rp {formatTotHarga}</p>
+                            <p className="font-normal">{authUser ? "Rp" + formatTotHarga : "Sign-in to see your total"}</p>
                         </div>
                         <CheckoutButton ids={ids} harga={harga} cartUsers={cartUsers} nama_furniture={nama_furniture}/>
                     </div>

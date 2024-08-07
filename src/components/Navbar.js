@@ -58,10 +58,8 @@ const Navbar = ({authUser, countCart}) => {
         }
         updateLocalCartCount()
         const handleLocalCartUpdate = () => updateLocalCartCount()
-        window.addEventListener('storage', handleLocalCartUpdate)
         window.addEventListener('local-cart-updated', handleLocalCartUpdate)
         return () => {
-            window.removeEventListener('storage', handleLocalCartUpdate)
             window.removeEventListener('local-cart-updated', handleLocalCartUpdate)
         }
     }, [])

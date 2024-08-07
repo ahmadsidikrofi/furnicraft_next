@@ -23,6 +23,7 @@ const DeleteCartButton = ({ detailSlug, toast, detailLocalSlug, updateLocalCart 
             setTimeout(() => {
                 toast.success("Furniture terhapus dari keranjang", { icon: '🗑️' })
                 updateLocalCart(deleteCartItem)
+                window.dispatchEvent(new Event('local-cart-updated'))
             }, 1000)
         } else {
             const deleteCart = await axios.delete(`/api/v1/cart/${detailSlug}`)
