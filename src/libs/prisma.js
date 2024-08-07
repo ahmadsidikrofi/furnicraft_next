@@ -8,6 +8,6 @@ if (process.env.NODE_ENV === "production") {
 
 global.prisma = prisma // Simpan prisma ke global
 
-// console.log("Prisma:", prisma)
+console.log("Prisma:", prisma)
 
 export default prisma

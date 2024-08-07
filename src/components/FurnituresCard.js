@@ -11,18 +11,18 @@ import FurnitureSkeleton from "./skeleton/FurnitureSkeleton"
 const FurnituresCard = ({ furnitures, authUser, cartData }) => {
     const router = useRouter()
     const [isLoading, setIsLoading] = useState(true)
-    const [cartItems, setCartItems] = useState([])
+    const [localCart, setLocalCart] = useState([])
     useEffect(() => {
         setTimeout(() => {
             setIsLoading(false)
         }, 3000)
-        const storedCart = JSON.parse(localStorage.getItem('cartItems')) || []
-        setCartItems(storedCart)
+        const storedCart = JSON.parse(localStorage.getItem('local-cart')) || []
+        setLocalCart(storedCart)
     }, [])
 
     const addToCart = async (furniture, e) => {
         e.preventDefault()
-        const isLocalFurnitureExists = cartItems.some((item) => item.slug === furniture.slug)
+        const isLocalFurnitureExists = localCart.some((item) => item.slug === furniture.slug)
         if (!authUser) {
             if (isLocalFurnitureExists) {
                 toast.success("Furniture sudah tersedia dalam keranjang")
@@ -45,10 +45,10 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
             slug: furniture.slug,
             user_email: authUser?.email,
         }
-        const updatedCartItems = [...cartItems, data]
-        setCartItems(updatedCartItems)
-        localStorage.setItem('cartItems', JSON.stringify(updatedCartItems))
-        window.dispatchEvent(new Event('cartItemsUpdated'))
+        const updatedLocalCart = [...localCart, data]
+        setLocalCart(updatedLocalCart)
+        localStorage.setItem('local-cart', JSON.stringify(updatedLocalCart))
+        window.dispatchEvent(new Event('local-cart-updated'))
         
         if (authUser) {
             try {

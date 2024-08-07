@@ -52,17 +52,17 @@ const Navbar = ({authUser, countCart}) => {
     }, [])
 
     useEffect(() => {
-        const updateCartCount = () => {
-            const cartItems = JSON.parse(localStorage.getItem("cartItems")) || []
-            setCountCartLocal(cartItems.length)
+        const updateLocalCartCount = () => {
+            const localCart = JSON.parse(localStorage.getItem("local-cart")) || []
+            setCountCartLocal(localCart.length)
         }
-        updateCartCount()
-        const handleCartUpdate = () => updateCartCount()
-        window.addEventListener('storage', handleCartUpdate)
-        window.addEventListener('cartItemsUpdated', handleCartUpdate)
+        updateLocalCartCount()
+        const handleLocalCartUpdate = () => updateLocalCartCount()
+        window.addEventListener('storage', handleLocalCartUpdate)
+        window.addEventListener('local-cart-updated', handleLocalCartUpdate)
         return () => {
-            window.removeEventListener('storage', handleCartUpdate)
-            window.removeEventListener('cartItemsUpdated', handleCartUpdate)
+            window.removeEventListener('storage', handleLocalCartUpdate)
+            window.removeEventListener('local-cart-updated', handleLocalCartUpdate)
         }
     }, [])
 
