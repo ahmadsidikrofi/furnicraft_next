@@ -45,10 +45,6 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
             slug: furniture.slug,
             user_email: authUser?.email,
         }
-        const updatedLocalCart = [...localCart, data]
-        setLocalCart(updatedLocalCart)
-        localStorage.setItem('local-cart', JSON.stringify(updatedLocalCart))
-        window.dispatchEvent(new Event('local-cart-updated'))
         
         if (authUser) {
             try {
@@ -70,7 +66,11 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
             }
         } else {
             // Jika user tidak login, hanya tampilkan pesan sukses
-            toast.success("Furniture berhasil masuk keranjang")
+            // toast.success("Furniture berhasil masuk keranjang")
+            const updatedLocalCart = [...localCart, data]
+            setLocalCart(updatedLocalCart)
+            localStorage.setItem('local-cart', JSON.stringify(updatedLocalCart))
+            window.dispatchEvent(new Event('local-cart-updated'))
         }
     }
 
