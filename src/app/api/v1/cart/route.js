@@ -10,9 +10,15 @@ export async function POST( request ) {
         slug: slugify(nama_furniture, { lower: true, strict: true, replacement: "-" })
     }
     console.log("Data yang dikirim ke Prisma:", data)
-    const addItem = await prisma.cart.create({data})
-    if (!addItem) return Response.json({ status: 500, isCreated: false })
-    else return Response.json({ status: 200, isCreated: true })
+    try {
+        const addItem = await prisma.cart.create({data})
+        return Response.json({ status: 200, isCreated: true })
+    } catch (err) {
+        if (err.code === "P2002") {
+            console.log("Furniture sudah dalam keranjang kamu")
+            return Response.json({ status: 409, isCreated: false, message: "Item sudah ada dalam keranjang" })
+        }
+    }
 }
 
 export async function DELETE () {
@@ -24,13 +30,13 @@ export async function DELETE () {
     else return Response.json({ status: 200, isDelete: true })
 }
 
-export async function GET (request) {
-    const { searchParams } = new URL(request.url);
-    const slug = searchParams.get('slug')
-    const user_email = searchParams.get('user_email')
-    const isFurnitureExists = await prisma.cart.findUnique({
-        where: { slug: slug, user_email: user_email }
-    })
-    if (isFurnitureExists) return Response.json({ status: 200, exists: true })
-    else return Response.json({ status: 200, exists: false })
-}
+// export async function GET (request) {
+//     const { searchParams } = new URL(request.url);
+//     const slug = searchParams.get('slug')
+//     const user_email = searchParams.get('user_email')
+//     const isFurnitureExists = await prisma.cart.findUnique({
+//         where: { slug: slug, user_email: user_email }
+//     })
+//     if (isFurnitureExists) return Response.json({ status: 200, exists: true })
+//     else return Response.json({ status: 200, exists: false })
+// }

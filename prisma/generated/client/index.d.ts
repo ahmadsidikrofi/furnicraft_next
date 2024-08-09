@@ -6685,6 +6685,7 @@ export namespace Prisma {
 
   export type cartWhereUniqueInput = Prisma.AtLeast<{
     id?: number
+    slug_user_email?: cartSlugUser_emailCompoundUniqueInput
     AND?: cartWhereInput | cartWhereInput[]
     OR?: cartWhereInput[]
     NOT?: cartWhereInput | cartWhereInput[]
@@ -6695,7 +6696,7 @@ export namespace Prisma {
     harga?: FloatFilter<"cart"> | number
     categories?: StringFilter<"cart"> | string
     image?: StringNullableFilter<"cart"> | string | null
-  }, "id">
+  }, "id" | "slug_user_email">
 
   export type cartOrderByWithAggregationInput = {
     id?: SortOrder
@@ -7529,6 +7530,11 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedDateTimeFilter<$PrismaModel>
     _max?: NestedDateTimeFilter<$PrismaModel>
+  }
+
+  export type cartSlugUser_emailCompoundUniqueInput = {
+    slug: string
+    user_email: string
   }
 
   export type cartCountOrderByAggregateInput = {

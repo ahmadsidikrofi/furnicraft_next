@@ -28,12 +28,13 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
                 toast.success("Furniture sudah tersedia dalam keranjang")
                 return
             }
-        } else {
-            const res = await axios.get(`/api/v1/cart?slug=${furniture.slug}&user_email=${authUser?.email}`)
-            if (res.data.exists) {
-                toast.success("Furniture sudah tersedia dalam keranjang")
-                return
-            }
+        // } else {
+        //     const res = await axios.get(`/api/v1/cart?slug=${furniture.slug}&user_email=${authUser?.email}`)
+        //     if (res.data.exists) {
+        //         toast.success("Furniture sudah tersedia dalam keranjang")
+        //         return
+        //     }
+        // }
         }
         const data = {
             furniture_id: furniture.id,
@@ -57,8 +58,8 @@ const FurnituresCard = ({ furnitures, authUser, cartData }) => {
                         router.refresh()
                     }, 1000)
                 } else {
-                    toast.error("Gagal masuk ke keranjang 😅")
-                    console.error("Gagal menambahkan furniture ke keranjang");
+                    toast.success("Furniture sudah tersedia dalam keranjang")
+                    console.error("Gagal menambahkan furniture ke keranjang")
                 }
             } catch (error) {
                 console.error("Gagal menambahkan furnitur ke keranjang", error);

@@ -40,6 +40,8 @@ model cart {
   harga          Float
   categories     String  @db.VarChar(155)
   image          String? @db.Text
+
+  @@unique([slug, user_email])
 }
 
 model Store {
