@@ -70,7 +70,7 @@ const Signin = () => {
                             </p>
                         </div>
                         <div className="flex justify-center">
-                            <Button variant="outline" className="p-3 w-[25rem] rounded-full gap-1"><GoogleLogo size={20} /> Google</Button>
+                            <Button disabled variant="outline" className="p-3 w-[25rem] rounded-full gap-1"><GoogleLogo size={20} /> Google (currently not avail) </Button>
                         </div>
                         <div className="flex justify-center">
                             <Button onClick={redirectToSignin} variant="outline" className="p-3 w-[25rem] rounded-full gap-1">
