@@ -56,7 +56,7 @@ const CheckoutButton = ({ ids, harga, cartUsers, nama_furniture }) => {
                 }
                 const resDelCart = await axios.delete('/api/v1/cart')
                 if (resDelCart.data.status === 200) {
-                    localStorage.removeItem('cartItems')
+                    localStorage.removeItem('local-cart')
                 }
             }, 5000)
         }).catch (err => {
