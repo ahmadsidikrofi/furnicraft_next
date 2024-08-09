@@ -9,9 +9,9 @@ let snap = new Midtrans.Snap({
 })
 
 export async function POST(request) {
-    const { orderId, transaction_status } = await request.json()
+    const { order_id, transaction_status } = await request.json()
     // Handle missing properties
-    if (!orderId || !transaction_status) {
+    if (!order_id || !transaction_status) {
         return new Response(JSON.stringify({ status: 400, message: "Bad Request: Missing required fields" }), { status: 400 });
     }
 
@@ -19,7 +19,7 @@ export async function POST(request) {
         // Update status order menjadi 'SETTLEMENT' di database
         await prisma.orders.update({
             where: {
-                id: orderId
+                id: order_id
             },
             data: {
                 status: 'SETTLEMENT'
