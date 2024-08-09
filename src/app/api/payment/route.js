@@ -43,6 +43,11 @@ export async function POST (request) {
         credit_card: {
             secure: true,
         },
+        callbacks: {
+            finish: "https://furnicraft-shop.vercel.app/dashboard/orders",
+            pending: "https://furnicraft-shop.vercel.app/dashboard/orders",
+            error: "https://furnicraft-shop.vercel.app/dashboard/orders"
+        }
     }
 
     const createToken = await snap.createTransactionToken(parameterMidtrans)
