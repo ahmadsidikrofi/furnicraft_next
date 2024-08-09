@@ -10,6 +10,7 @@ let snap = new Midtrans.Snap({
 
 export async function POST(request) {
     const { order_id, transaction_status } = await request.json()
+    console.log('Midtrans Notification Received:', { order_id, transaction_status })
     // Handle missing properties
     if (!order_id || !transaction_status) {
         return new Response(JSON.stringify({ status: 400, message: "Bad Request: Missing required fields" }), { status: 400 });
