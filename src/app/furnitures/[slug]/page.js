@@ -46,7 +46,7 @@ const detailFurniturePage = async ({ params }) => {
                             image={detailData.image}
                             id_furniture={detailData.id}
                             slug={detailData.slug}
-                            email={email}
+                            authUser={authUser}
                         />
                     </div>
                 </div>

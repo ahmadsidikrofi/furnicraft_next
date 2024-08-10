@@ -17,12 +17,14 @@ import {
 import { Button } from "./ui/Button"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
+import SearchSkeleton from "./skeleton/SearchSkeleton"
   
 const SearchFurnitems = ({ setIsSearchOpen }) => {
     const router = useRouter()
     const [closeSearchbar, setCloseSearchbar] = useState(false)
     const [searchValue, setSearchValue] = useState('')
     const [searchResult, setSearchResult] = useState([])
+    const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
         if (searchValue.trim()) {
             axios.get(`/api/v1/search?query=${searchValue}`)
@@ -51,24 +53,30 @@ const SearchFurnitems = ({ setIsSearchOpen }) => {
         <>
         <div className="fixed inset-0 z-20 bg-color-primary bg-opacity-50 backdrop-blur-sm" onClick={handleCloseSearchbar}></div>
         <div className="sticky z-20">
-            <div className="fixed top-48 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+            <motion.div className="fixed top-48 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                initial={{ y: -300, opacity: 0, x: "-50%" }}
+                animate={{ y: 0, opacity: 1, x: "-50%" }}
+                transition={{ type: 'spring', duration: 1 }}
+            >
                 <Command className="rounded-lg border shadow-md md:w-[85vh] max-sm:w-[40vh] sm:w-[40vh]">
                     <CommandInput onValueChange={(value) => setSearchValue(value)} placeholder="Cari furniturmu" />
                     <CommandList>
-                        {Object.keys(groupedResults).length > 0 ? (
-                            Object.keys(groupedResults).map((category, index) => (
-                                <div key={index}>
-                                    <CommandGroup heading={category}>
-                                        {groupedResults[category].map((result, i) => (
-                                            <div className="hover:bg-accent hover:text-accent-foreground"  onClick={() => handleDetailFurniture(result.slug)} key={i}>
-                                                <CommandItem>{result.nama_furniture}</CommandItem>
-                                            </div>
-                                        ))}
-                                    </CommandGroup>
-                                </div>
-                            )) 
-                        ) : (
-                            <CommandEmpty>Tidak membuahkan hasil.</CommandEmpty>
+                        {isLoading ? <SearchSkeleton /> : (
+                            Object.keys(groupedResults).length > 0 ? (
+                                Object.keys(groupedResults).map((category, index) => (
+                                    <div key={index}>
+                                        <CommandGroup heading={category}>
+                                            {groupedResults[category].map((result, i) => (
+                                                <div className="hover:bg-accent hover:text-accent-foreground" onClick={() => handleDetailFurniture(result.slug)} key={i}>
+                                                    <CommandItem>{result.nama_furniture}</CommandItem>
+                                                </div>
+                                            ))}
+                                        </CommandGroup>
+                                    </div>
+                                )) 
+                            ) : (
+                                <SearchSkeleton />
+                            )
                         )}
                     </CommandList>
                 </Command>
@@ -84,7 +92,7 @@ const SearchFurnitems = ({ setIsSearchOpen }) => {
                     </div>
                     <button onClick={handleCloseSearchbar}><XCircle size={28} /></button>
                 </motion.div> */}
-            </div>
+            </motion.div>
         </div>
         </>
     )
