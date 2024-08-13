@@ -3,12 +3,11 @@ import Midtrans from "midtrans-client";
 
 export async function POST(request) {
     const body = await request.json()
-    // let orderId = body.order_id
-    // let transaction_status = body.transaction_status
-    const { order_id, transaction_status } = body
-    console.log('Midtrans Notification Received:', { order_id, transaction_status })
+    let orderId = body.order_id
+    let transaction_status = body.transaction_status
+    console.log('Midtrans Notification Received:', { orderId, transaction_status })
     // Handle missing properties
-    if (!order_id || !transaction_status) {
+    if (!body.order_id || !body.transaction_status) {
         return new Response(JSON.stringify({ status: 400, message: "Bad Request: Missing required fields" }), { status: 400 });
     }
 
@@ -16,7 +15,7 @@ export async function POST(request) {
         // Update status order menjadi 'SETTLEMENT' di database
         await prisma.orders.update({
             where: {
-                token: order_id
+                id: body.order_id
             },
             data: {
                 status: 'SETTLEMENT'
