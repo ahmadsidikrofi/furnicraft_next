@@ -34,6 +34,16 @@ export async function POST(request) {
                 }
             })
             return new Response(JSON.stringify({ message: 'Order status updated to SETTLEMENT' }), { status: 200 })
+        } else if (transaction_status === 'pending') {
+            await prisma.orders.update({
+                where: {
+                    id: body.order_id
+                },
+                data: {
+                    status: 'PENDING'
+                }
+            })
+            return new Response(JSON.stringify({ message: 'Order status updated to PENDING' }), { status: 200 })
         }
     }
     return new Response(JSON.stringify({ message: 'Transaction status not handled' }), { status: 200 });
