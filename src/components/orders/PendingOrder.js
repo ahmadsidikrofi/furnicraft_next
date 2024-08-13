@@ -77,9 +77,26 @@ const PendingOrder = ({ pendingOrders }) => {
             document.body.removeChild(scriptElement)
         }
     })
-    const handlePayOrder = async(orderId) => {
-        const { data } = await axios.post('/api/payment/charge', { orderId }) 
-        window.snap.pay(data.token)
+    const handlePayOrder = async (orderId) => {
+        const order = orders.find(order => order.id === orderId)
+        console.log(order.token)
+        if (order.token) {
+            window.snap.pay(order.token, {
+                onSuccess: () => {
+                    toast.success('Pembayaran berhasil!!', { duration: 1000 })
+                    setTimeout(() => {
+                        router.push('/dashboard/orders')
+                    }, 2000)
+                }, onClose: () => {
+                    toast.error('Kamu belum menyelesaikan pembayaran', { duration: 1000 })
+                    setTimeout(() => {
+                        router.push('/dashboard/orders')
+                    }, 2000)
+                }
+            })
+        } else {
+            console.log("Token tidak sesuai")
+        }
     }
     
     return (
@@ -138,7 +155,7 @@ const PendingOrder = ({ pendingOrders }) => {
                                                                 </AlertDialogHeader>
                                                                 <AlertDialogFooter>
                                                                     <AlertDialogCancel className="rounded-full">Tidak jadi</AlertDialogCancel>
-                                                                    <AlertDialogAction className="bg-rose-500 rounded-full flex items-center gap-2" onClick={() => handleCancelOrder(pendingOrder.id)} >
+                                                                    <AlertDialogAction className="bg-rose-500 rounded-full flex items-center gap-2" onClick={() => handleCancelOrder(pendingOrder.token)} >
                                                                         {isLoading ? <ReloadIcon className="h-5 w-5 animate-spin"/> : null}
                                                                         <p>Sudah mantap</p>
                                                                     </AlertDialogAction>

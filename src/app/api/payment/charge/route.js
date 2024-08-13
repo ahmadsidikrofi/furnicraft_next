@@ -9,24 +9,21 @@ let snap = new Midtrans.Snap({
     clientKey: process.env.MIDTRANS_PUBLIC_CLIENT
 })
 export async function POST (request) {
-    const authUser = authUserGithub()
-    // console.log(authUser)
+    const authUser = await authUserGithub()
     const { orderId } = await request.json()
     const order = await prisma.orders.findUnique({
         where: { id: orderId }
     })
-    if (order.status === "SETTLEMENT") {
-        return Response.json({ status: 404, message: "Order already been settled" })
-    }
     const prefix = 'FURN'
     const dateOrder = new Date().toISOString().slice(0, 10).replace(/-/g, '')
     const uniqueId = nanoid(10)
     const newOrderId = `${prefix}-${dateOrder}-${nanoid(3)}-${uniqueId}`
 
     let midtransParams = {
+        item_details: "",
         customer_details: {
-            first_name: authUser?.name,
-            email: authUser?.email,
+            first_name: authUser.name,
+            email: authUser.email,
         },
         transaction_details: {
             order_id: newOrderId,
