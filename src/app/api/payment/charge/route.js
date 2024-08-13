@@ -15,6 +15,9 @@ export async function POST (request) {
     const order = await prisma.orders.findUnique({
         where: { id: orderId }
     })
+    if (order.status === "SETTLEMENT") {
+        return Response.json({ status: 404, message: "Order already been settled" })
+    }
     const prefix = 'FURN'
     const dateOrder = new Date().toISOString().slice(0, 10).replace(/-/g, '')
     const uniqueId = nanoid(10)
@@ -36,6 +39,7 @@ export async function POST (request) {
         where: { id: orderId },
         data: {
             token: createToken,
+            status: "PENDING"
         }
     })
     console.log(createToken, midtransParams)
