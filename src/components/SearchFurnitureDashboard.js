@@ -37,21 +37,30 @@ import { DotsHorizontalIcon, EyeOpenIcon, PlusCircledIcon, ReloadIcon } from "@r
 import {  PencilCircle, Trash } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import TableSkeleton from "./skeleton/TableSkeleton";
 
 const SearchFurnitureDashboard = ({ initialFurnitures, detailData }) => {
     const [fetchFurnitures, setFetchFurnitures] = useState(initialFurnitures)
     const [searchTerm, setSearchTerm] = useState('')
     const [isLoading, setIsLoading] = useState(false)
+    const [isTableMounted, setIsTableMounted] = useState(true)
     const router = useRouter()
 
     useEffect(() => {
         if (searchTerm.trim() === "") {
+            setTimeout(() => {
+                setIsTableMounted(false)
+            }, 1500)
             setFetchFurnitures(initialFurnitures);
         } else {
             const filteredFurnitures = initialFurnitures.filter(furniture =>
                 furniture.nama_furniture.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 furniture.categories.toLowerCase().includes(searchTerm.toLowerCase())
-            );
+            )
+            setIsTableMounted(true)
+            setTimeout(() => {
+                setIsTableMounted(false)
+            }, 1000)
             setFetchFurnitures(filteredFurnitures);
         }
     }, [searchTerm, initialFurnitures]);
@@ -85,84 +94,86 @@ const SearchFurnitureDashboard = ({ initialFurnitures, detailData }) => {
                 </Link>
             </div>
             <div className="border my-6 rounded-lg">
-                <Table>
-                    <TableHeader>
-                        <TableRow className="max-sm:text-[12px]">
-                            <TableHead className="p-4 w-72 max-sm:text-nowrap">Nama furnitur</TableHead>
-                            <TableHead>Kategori</TableHead>
-                            <TableHead>Harga</TableHead>
-                            <TableHead>Ditambahkan pada</TableHead>
-                            <TableHead></TableHead>
-                        </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                        {fetchFurnitures.length < 1 ?     
-                            <TableRow>
-                                <TableCell colSpan={5} className="text-center p-10 font-medium">Tidak ada data</TableCell>
+                {isTableMounted ? <TableSkeleton /> : (
+                    <Table>
+                        <TableHeader>
+                            <TableRow className="max-sm:text-[12px]">
+                                <TableHead className="p-4 w-72 max-sm:text-nowrap">Nama furnitur</TableHead>
+                                <TableHead>Kategori</TableHead>
+                                <TableHead>Harga</TableHead>
+                                <TableHead>Ditambahkan pada</TableHead>
+                                <TableHead></TableHead>
                             </TableRow>
-                            :
-                            fetchFurnitures.map((furniture, i) => (
-                                <TableRow key={i} className="text-left max-sm:text-[12px]">
-                                    <TableCell className="p-5 w-64">{furniture.nama_furniture}</TableCell>
-                                    <TableCell>{furniture.categories}</TableCell>
-                                    <TableCell>Rp {furniture.harga.toLocaleString("id-ID", { minimumFractionDigits: 2 })}</TableCell>
-                                    <TableCell>
-                                        {new Date(furniture.created_at).toLocaleDateString("id-ID", {
-                                            day: 'numeric',
-                                            month: 'long',
-                                            year: 'numeric'
-                                        })}
-                                    </TableCell>
-                                    <TableCell>
-                                        <DropdownMenu>
-                                            <DropdownMenuTrigger asChild>
-                                                <Button variant="ghost" className="h-8 w-8 p-0">
-                                                    <DotsHorizontalIcon className="h-4 w-4" />
-                                                </Button>
-                                            </DropdownMenuTrigger>
-                                            <DropdownMenuContent className="mx-6 mt-1">
-                                                <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                                                <DropdownMenuSeparator />
-                                                <Link href={`/furnitures/${furniture.slug}`}>
-                                                    <DropdownMenuItem className="flex gap-3 cursor-pointer">
-                                                        <EyeOpenIcon className="h-5 w-5" />
-                                                        <p>View</p>
-                                                    </DropdownMenuItem>
-                                                </Link>
-                                                <Link href={`/dashboard/stores/${detailData.slug}/${furniture.slug}`}>
-                                                    <DropdownMenuItem className="flex gap-3 cursor-pointer">
-                                                        <PencilCircle className="h-5 w-5" />
-                                                        <p>Update</p>
-                                                    </DropdownMenuItem>
-                                                </Link>
-                                                <DropdownMenuItem className="cursor-pointer" asChild>
-                                                    <AlertDialog>
-                                                        <AlertDialogTrigger asChild>
-                                                            <Button variant="none" className="p-2 flex gap-3 h-9">
-                                                                {isLoading ? <ReloadIcon className="h-5 w-5 animate-spin" /> : <Trash className="h-5 w-5" />}
-                                                                <p>Delete</p>
-                                                            </Button>
-                                                        </AlertDialogTrigger>
-                                                        <AlertDialogContent>
-                                                            <AlertDialogHeader>
-                                                                <AlertDialogTitle>Yakin ingin dihapus?</AlertDialogTitle>
-                                                                <AlertDialogDescription>Dengan begini 1 furniturmu akan dibuang</AlertDialogDescription>
-                                                            </AlertDialogHeader>
-                                                            <AlertDialogFooter>
-                                                                <AlertDialogCancel className="rounded-full">Batalkan</AlertDialogCancel>
-                                                                <AlertDialogAction className="bg-rose-500 rounded-full" onClick={() => handleDeleteFurniture(furniture.slug)}>Sudah mantap!</AlertDialogAction>
-                                                            </AlertDialogFooter>
-                                                        </AlertDialogContent>
-                                                    </AlertDialog>
-                                                </DropdownMenuItem>
-                                            </DropdownMenuContent>
-                                        </DropdownMenu>
-                                    </TableCell>
+                        </TableHeader>
+                        <TableBody>
+                            {fetchFurnitures.length < 1 ?     
+                                <TableRow>
+                                    <TableCell colSpan={5} className="text-center p-10 font-medium">Tidak ada data</TableCell>
                                 </TableRow>
-                            ))
-                        }
-                    </TableBody>
-                </Table>
+                                :
+                                fetchFurnitures.map((furniture, i) => (
+                                    <TableRow key={i} className="text-left max-sm:text-[12px]">
+                                        <TableCell className="p-5 w-64">{furniture.nama_furniture}</TableCell>
+                                        <TableCell>{furniture.categories}</TableCell>
+                                        <TableCell>Rp {furniture.harga.toLocaleString("id-ID", { minimumFractionDigits: 2 })}</TableCell>
+                                        <TableCell>
+                                            {new Date(furniture.created_at).toLocaleDateString("id-ID", {
+                                                day: 'numeric',
+                                                month: 'long',
+                                                year: 'numeric'
+                                            })}
+                                        </TableCell>
+                                        <TableCell>
+                                            <DropdownMenu>
+                                                <DropdownMenuTrigger asChild>
+                                                    <Button variant="ghost" className="h-8 w-8 p-0">
+                                                        <DotsHorizontalIcon className="h-4 w-4" />
+                                                    </Button>
+                                                </DropdownMenuTrigger>
+                                                <DropdownMenuContent className="mx-6 mt-1">
+                                                    <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                                                    <DropdownMenuSeparator />
+                                                    <Link href={`/furnitures/${furniture.slug}`}>
+                                                        <DropdownMenuItem className="flex gap-3 cursor-pointer">
+                                                            <EyeOpenIcon className="h-5 w-5" />
+                                                            <p>View</p>
+                                                        </DropdownMenuItem>
+                                                    </Link>
+                                                    <Link href={`/dashboard/stores/${detailData.slug}/${furniture.slug}`}>
+                                                        <DropdownMenuItem className="flex gap-3 cursor-pointer">
+                                                            <PencilCircle className="h-5 w-5" />
+                                                            <p>Update</p>
+                                                        </DropdownMenuItem>
+                                                    </Link>
+                                                    <DropdownMenuItem className="cursor-pointer" asChild>
+                                                        <AlertDialog>
+                                                            <AlertDialogTrigger asChild>
+                                                                <Button variant="none" className="p-2 flex gap-3 h-9">
+                                                                    {isLoading ? <ReloadIcon className="h-5 w-5 animate-spin" /> : <Trash className="h-5 w-5" />}
+                                                                    <p>Delete</p>
+                                                                </Button>
+                                                            </AlertDialogTrigger>
+                                                            <AlertDialogContent>
+                                                                <AlertDialogHeader>
+                                                                    <AlertDialogTitle>Yakin ingin dihapus?</AlertDialogTitle>
+                                                                    <AlertDialogDescription>Dengan begini 1 furniturmu akan dibuang</AlertDialogDescription>
+                                                                </AlertDialogHeader>
+                                                                <AlertDialogFooter>
+                                                                    <AlertDialogCancel className="rounded-full">Batalkan</AlertDialogCancel>
+                                                                    <AlertDialogAction className="bg-rose-500 rounded-full" onClick={() => handleDeleteFurniture(furniture.slug)}>Sudah mantap!</AlertDialogAction>
+                                                                </AlertDialogFooter>
+                                                            </AlertDialogContent>
+                                                        </AlertDialog>
+                                                    </DropdownMenuItem>
+                                                </DropdownMenuContent>
+                                            </DropdownMenu>
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            }
+                        </TableBody>
+                    </Table>
+                )}
             </div>
         </>
     );

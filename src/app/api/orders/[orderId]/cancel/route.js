@@ -10,7 +10,7 @@ export async function PUT (request, { params }) {
     if (!order) return Response.json({ status: 404, message: "Pesanan tidak ditemukan" })
     if (order.user_email !== authUser.email) return Response.json({ status: 403, message: "Kamu bukan pelanggan asli" })
 
-    const updateStatus = await prisma.Orders.update({
+    await prisma.Orders.update({
         where: { id: order.id },
         data: { status: 'CANCELED' }
     }) 

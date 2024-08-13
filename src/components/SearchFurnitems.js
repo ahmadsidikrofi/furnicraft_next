@@ -27,6 +27,8 @@ const SearchFurnitems = ({ setIsSearchOpen }) => {
     const [isLoading, setIsLoading] = useState(false)
     useEffect(() => {
         if (searchValue.trim()) {
+            setIsLoading(true)
+            setTimeout(setIsLoading(false), 3000)
             axios.get(`/api/v1/search?query=${searchValue}`)
             .then((res) => {
                 setSearchResult(res.data.resultData || [])
@@ -75,7 +77,7 @@ const SearchFurnitems = ({ setIsSearchOpen }) => {
                                     </div>
                                 )) 
                             ) : (
-                                <SearchSkeleton />
+                                <CommandEmpty>Tidak membuahkan hasil.</CommandEmpty>
                             )
                         )}
                     </CommandList>

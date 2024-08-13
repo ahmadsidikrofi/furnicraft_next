@@ -1,3 +1,4 @@
+'use client'
 import { Skeleton } from "../ui/skeleton"
 import { CommandGroup, CommandItem } from "@/components/ui/command"
 
