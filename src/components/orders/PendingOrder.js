@@ -24,20 +24,13 @@ import {
 import { Button } from "../ui/Button"
 import { DotsVerticalIcon, ReloadIcon } from "@radix-ui/react-icons"
 import Image from "next/image"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
 import toast, { Toaster } from 'react-hot-toast'
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 
 const PendingOrder = ({ pendingOrders }) => {
-    // let sumHarga = 0
-    // const mapHarga = pendingOrders.map((pendingOrder) => {
-    //     pendingOrder.OrderFurniture.map((OrderFurniture) => {
-    //         sumHarga += OrderFurniture.furnitures.harga 
-    //     })
-    // })
-    // const totalHarga = parseInt(sumHarga)
     const router = useRouter()
     const [orders, setOrders] = useState(pendingOrders)
     const [isLoading, setIsLoading] = useState(false)
@@ -70,6 +63,25 @@ const PendingOrder = ({ pendingOrders }) => {
             setIsLoading(false)
         }
     }
+
+    // Pay the order
+    useEffect(() => {
+        const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js"
+        const snapClientKey = process.env.MIDTRANS_PUBLIC_CLIENT
+        const scriptElement = document.createElement("script")
+        scriptElement.src = snapScript
+        scriptElement.setAttribute("data-client-key", snapClientKey)
+        scriptElement.async = true
+        document.body.appendChild(scriptElement)
+        return () => {
+            document.body.removeChild(scriptElement)
+        }
+    })
+    const handlePayOrder = async(orderId) => {
+        const { data } = await axios.post('/api/payment/charge', { orderId }) 
+        window.snap.pay(data.token)
+    }
+    
     return (
         <>
             <Toaster />
@@ -88,6 +100,10 @@ const PendingOrder = ({ pendingOrders }) => {
                                         </div>
                                         <div className="flex items-center justify-end gap-2">
                                             <Badge className="rounded-full text-yellow-600 bg-yellow-200">Pending</Badge>
+                                            {/* <p>{pendingOrder.id}</p>
+                                            <p>{pendingOrder.OrderFurniture.map((name) => (
+                                                name.furnitures.nama_furniture
+                                            ))}</p> */}
                                             <DropdownMenu>
                                                 <DropdownMenuTrigger asChild>
                                                     <Button variant="ghost" className="h-8 w-8 p-0 font-bold">
@@ -97,7 +113,7 @@ const PendingOrder = ({ pendingOrders }) => {
                                                 <DropdownMenuContent>
                                                     <DropdownMenuLabel>Actions</DropdownMenuLabel>
                                                     <DropdownMenuSeparator />
-                                                    <DropdownMenuItem className="flex gap-3 cursor-pointer">
+                                                    <DropdownMenuItem className="flex gap-3 cursor-pointer" onClick={() => handlePayOrder(pendingOrder.id)}>
                                                         <Wallet className="h-5 w-5" />
                                                         <p>Pay</p>
                                                     </DropdownMenuItem>
