@@ -25,7 +25,7 @@ const StoreCard = ({ userStores }) => {
         <>
             {isLoading ? (
                 userStores.map((userStore, i) => (
-                    <StoreSkeleton key={i} setIsLoading={setIsLoading} />
+                    <StoreSkeleton key={i} />
                 ))
             ) : (
                 userStores.map((userStore, i) => (

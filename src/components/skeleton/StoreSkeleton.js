@@ -8,14 +8,8 @@ import {
     CardTitle,
 } from "@/components/ui/Card"
 import { AspectRatio } from "@/components/ui/aspect-ratio";
-import Link from "next/link";
 import { Skeleton } from "../ui/skeleton";
-import { useEffect } from "react";
-const StoreSkeleton = ({ setIsLoading }) => {
-    useEffect(() => {
-        setIsLoading(false)
-        return () => setIsLoading(false)
-    }, [setIsLoading])
+const StoreSkeleton = () => {
     return (
         <Card className="my-3">
             <AspectRatio ratio={21 / 9} className="rounded-lg">
