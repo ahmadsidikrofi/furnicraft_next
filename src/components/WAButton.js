@@ -12,10 +12,8 @@ const WAButton = ({ waLink, detailData }) => {
         <>
             <div className="fixed bottom-8 right-8 gap-3">
                 <HoverCard>
-                    <HoverCardTrigger>
-                        <Link href={waLink} target="_blank" className="flex items-center text-md bg-color-accent2 text-white rounded-full p-3">
-                            <WhatsappLogo className="h-10 w-10" />
-                        </Link>
+                    <HoverCardTrigger href={waLink} target="_blank" className="flex items-center text-md bg-color-accent2 text-white rounded-full p-3"> 
+                        <WhatsappLogo className="h-10 w-10" />
                     </HoverCardTrigger>
                     <HoverCardContent className="w-80">
                         <div className="flex justify-between space-x-4">
