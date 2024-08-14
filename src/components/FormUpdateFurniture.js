@@ -10,6 +10,8 @@ import toast, { Toaster } from 'react-hot-toast'
 import axios from "axios"
 import { ReloadIcon } from "@radix-ui/react-icons"
 import Dropzone from "./Dropzone"
+import * as yup from "yup"
+import { yupResolver } from "@hookform/resolvers/yup";
 import {
     Form,
     FormControl,
@@ -30,11 +32,18 @@ import slugify from "slugify"
 import Image from "next/image"
 
 const FormUpdateFurniture = ({ storeId, slugStore, dataFurniture }) => {
-    const form = useForm()
     const router = useRouter()
     const [isLoading, setIsLoading] = useState()
     const [urlGambar, setUrlGambar] = useState(dataFurniture.image)
 
+    const schema = yup.object().shape({
+        nama_furniture: yup.string()
+        .trim()
+        .min(25, "Nama furnitur tidak boleh kurang dari 25 huruf dan beri nama toko didepan nama furnitur. Contoh: FURNI - ")
+    })
+    const form = useForm({
+        resolver: yupResolver(schema),
+    })
     useEffect(() => {
         form.setValue('image', urlGambar)
     },[form, urlGambar])
