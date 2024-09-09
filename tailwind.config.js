@@ -22,8 +22,8 @@ module.exports = withUt({
       colors: {
         color: {
           primary: '#fff',
-          accent: '#F5004F',
-          accent2: '#F5004F',
+          accent: '#FB6D48',
+          accent2: '#FB6D48',
           thin: '#CCFFFF',
           secondary: '#393e46',
           grey: '#82748b'
