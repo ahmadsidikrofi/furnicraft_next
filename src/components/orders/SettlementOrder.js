@@ -8,7 +8,7 @@ import {
     DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "../ui/separator";
-import { Invoice, TeaBag, Wallet, XCircle } from "@phosphor-icons/react";
+import { Invoice, TeaBag } from "@phosphor-icons/react";
 import { DotsVerticalIcon } from "@radix-ui/react-icons";
 import { Button } from "../ui/Button";
 import { Badge } from "../ui/Badge";
